@@ -1,5 +1,5 @@
 import React from 'react';
-import backgroundImage from '../assets/background.svg';
+import backgroundImage from '../assets/Login_Bg.svg';
 import Logo from "../assets/Logo.svg";
 import Google from "../assets/Google.svg";
 import Github from "../assets/Github.svg";
@@ -68,7 +68,7 @@ export const Login: React.FC = () => {
               </button>
             </div>
             <div className="text-center text-sm mt-0">
-              <a href="/Forget_Password" className="text-white">Forget password ?</a>
+              <a href="/Forgot_Password" className="text-white">Forget password ?</a>
             </div>
           </form>
 

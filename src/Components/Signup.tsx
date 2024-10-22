@@ -1,5 +1,5 @@
 import React from 'react';
-import backgroundImage from '../assets/Background.svg';
+import backgroundImage from '../assets/Signup_Bg.svg';
 import Logo from "../assets/Logo.svg";
 import Google from "../assets/Google.svg";
 import Github from "../assets/Github.svg";
