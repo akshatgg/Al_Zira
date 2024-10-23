@@ -5,7 +5,9 @@ import Google from "../assets/Google.svg";
 import Github from "../assets/Github.svg";
 import Facebook from "../assets/Facebook.svg";
 
-export const Login: React.FC = () => {
+ const Login: React.FC = () => {
+
+  
   return (
     <div className="flex-1 items-center min-h-screen"
       style={{
@@ -63,9 +65,11 @@ export const Login: React.FC = () => {
               <label htmlFor="remember-me" className="text-white">Remember me</label>
             </div>
             <div className="text-center">
-              <button className="bg-blue-800 text-white font-bold py-2 px-4 rounded-lg w-full transition-all">
-                Login
-              </button>
+            <button className="mb-2 bg-gradient-to-r from-[#6586FA] to-[#6B1C99] rounded-lg text-white py-[2%] w-full cursor-pointer text-lg font-light">
+  Login
+</button>
+
+
             </div>
             <div className="text-center text-sm mt-0">
               <a href="/Forgot_Password" className="text-white">Forget password ?</a>
@@ -106,4 +110,5 @@ export const Login: React.FC = () => {
 
 
 Login.displayName = 'Login';
+
 export default Login;

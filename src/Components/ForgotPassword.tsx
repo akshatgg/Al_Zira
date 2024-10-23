@@ -44,7 +44,7 @@ export const ForgetPassword: React.FC = () => {
                         </div>
 
                         <div className="text-center">
-                            <button className="bg-pink-600 text-white font-bold py-2 px-4 rounded-lg w-full transition-all">
+                            <button className=" bg-gradient-to-r from-[#E446B9] to-[#7A0731] text-white font-bold py-2 px-4 rounded-lg w-full transition-all">
                                 Reset Password
                             </button>
                         </div>

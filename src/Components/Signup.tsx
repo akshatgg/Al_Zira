@@ -69,9 +69,9 @@ const Signup: React.FC = () => {
               />
             </div>
             <div className="text-center">
-              <button className="bg-blue-800 text-white font-bold py-2 px-4 rounded-lg w-full transition-all">
-                Signup
-              </button>
+            <button className="mb-2 bg-gradient-to-r from-[#2E4DEF] to-[#0E148E] rounded-lg text-white py-[2%] w-full cursor-pointer text-lg font-light">
+  Signup
+</button>
             </div>
           </form>
 
