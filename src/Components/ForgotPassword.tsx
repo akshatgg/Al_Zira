@@ -29,7 +29,8 @@ export const ForgetPassword: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="flex-none w-1/4 text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg mb-20 mr-20">
+<div className='flex-0 pr-10'>
+                <div className=" text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg">
                     <h2 className="text-3xl font-sans font-semibold mb-0 mt-4">Forgot Password ?</h2>
                     <p className="mb-2">Please enter your email</p>
 
@@ -44,13 +45,15 @@ export const ForgetPassword: React.FC = () => {
                         </div>
 
                         <div className="text-center">
-                            <button className=" bg-gradient-to-r from-[#E446B9] to-[#7A0731] text-white font-bold py-2 px-4 rounded-lg w-full transition-all">
-                                Reset Password
-                            </button>
+                        <button className="bg-gradient-to-r from-[#E446B9] to-[#7A0731] text-white font-bold py-2 px-4 rounded-lg w-full transition-all duration-300 hover:from-[#C9369E] hover:to-[#640627]">
+  Reset Password
+</button>
+
+
                         </div>
                     </form>
 
-                    <div className="text-center text-sm mt-4">
+                    <div className="text-center text-sm mt-[80%]">
                         Don't have an account ? <a href="/Signup" className="text-white">Signup</a>
                     </div>
 
@@ -59,6 +62,7 @@ export const ForgetPassword: React.FC = () => {
                         <a href="/" className="text-white">Support</a>
                         <a href="/" className="text-white">Customer Care</a>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
