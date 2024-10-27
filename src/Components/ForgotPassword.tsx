@@ -29,6 +29,7 @@ export const ForgetPassword: React.FC = () => {
                     </div>
                 </div>
 
+
 <div className='flex-0 pr-10'>
                 <div className=" text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg">
                     <h2 className="text-3xl font-sans font-semibold mb-0 mt-4">Forgot Password ?</h2>
