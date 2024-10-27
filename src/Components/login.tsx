@@ -6,8 +6,12 @@ import Github from "../assets/Github.svg";
 import Facebook from "../assets/Facebook.svg";
 
  const Login: React.FC = () => {
+   
+   const [showPassword, setShowPassword] = React.useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-  
   return (
     <div className="flex-1 items-center min-h-screen"
       style={{
@@ -27,14 +31,15 @@ import Facebook from "../assets/Facebook.svg";
         <div className="text-white flex-1 pl-20 pt-20 mt-20">
           <h1 className="text-7xl font-sans font-semibold mb-4">Welcome Back .!</h1>
           <div className="flex items-center justify-center my-6">
-            <button className="border border-white px-6 py-2 italic font-semibold hover:bg-white hover:text-black transition duration-300">
+            <button className="border border-white px-6 py-2 italic font-semibold hover:bg-white hover:border-white hover:text-black transition duration-300">
               Skip the lag ?
             </button>
             <div className="w-5/6 border-t-2 border-dashed border-gray-700"></div>
           </div>
         </div>
 
-        <div className="flex-none w-1/4 text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg mb-20 mr-20">
+<div className='flex-0 pr-10'>
+        <div className=" max-w-full justify-center items-center text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg ">
           <h2 className="text-3xl font-sans font-semibold mb-0 mt-4">Login</h2>
           <p className="mb-2">Glad you're back.!</p>
 
@@ -47,14 +52,21 @@ import Facebook from "../assets/Facebook.svg";
                 placeholder="Username"
               />
             </div>
-            <div className="mb-0">
-              <input
-                className="border border-white bg-transparent w-full px-4 py-2 text-black rounded-lg focus:outline-none"
-                id="password"
-                type="password"
-                placeholder="Password"
-              />
-            </div>
+            <div className="mb-4 relative">
+                <input
+                  className="border border-white text-white bg-transparent w-full px-4 py-2 rounded-lg focus:outline-none"
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-400 hover:text-white"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
 
             <div className="flex items-center mb-4">
               <input
@@ -65,9 +77,10 @@ import Facebook from "../assets/Facebook.svg";
               <label htmlFor="remember-me" className="text-white">Remember me</label>
             </div>
             <div className="text-center">
-            <button className="mb-2 bg-gradient-to-r from-[#6586FA] to-[#6B1C99] rounded-lg text-white py-[2%] w-full cursor-pointer text-lg font-light">
+            <button className="mb-2 bg-gradient-to-r from-[#6586FA] to-[#6B1C99] rounded-lg text-white py-[2%] w-full cursor-pointer text-lg font-light transition duration-300 hover:from-[#5263D8] hover:to-[#4E167A]">
   Login
 </button>
+
 
 
             </div>
@@ -103,6 +116,7 @@ import Facebook from "../assets/Facebook.svg";
             <a href="/" className="text-white">Customer Care</a>
           </div>
         </div>
+  </div>
       </div>
     </div>
   );

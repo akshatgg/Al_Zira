@@ -6,6 +6,10 @@ import Github from "../assets/Github.svg";
 import Facebook from "../assets/Facebook.svg";
 
 const Signup: React.FC = () => {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <div className="flex-1 items-center min-h-screen"
       style={{
@@ -21,6 +25,7 @@ const Signup: React.FC = () => {
       </div>
 
       <div className="flex">
+
         <div className="text-white flex-1 pl-20 pt-20 mt-20">
           <h1 className="text-7xl font-sans font-semibold mb-4">Roll the Carpet .!</h1>
           <div className="flex items-center justify-center my-6">
@@ -31,7 +36,8 @@ const Signup: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-none w-1/4 text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg mb-20 mr-20">
+       <div className='flex-0 pr-10 pb-4'>
+        <div className=" text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg ">
           <h2 className="text-3xl font-sans font-semibold mb-0 mt-4">Signup</h2>
           <p className="mb-2">Just some details to get you in!</p>
 
@@ -52,26 +58,43 @@ const Signup: React.FC = () => {
                 placeholder="Email/Phone"
               />
             </div>
-            <div className="mb-4">
-              <input
-                className="border border-white bg-transparent w-full px-4 py-2 text-black rounded-lg focus:outline-none"
-                id="password"
-                type="password"
-                placeholder="Password"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                className="border border-white bg-transparent w-full px-4 py-2 text-black rounded-lg focus:outline-none"
-                id="confirm-password"
-                type="password"
-                placeholder="Confirm Password"
-              />
-            </div>
+            
+            <div className="mb-4 relative">
+                <input
+                  className="border border-white text-white bg-transparent w-full px-4 py-2 rounded-lg focus:outline-none"
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-400 hover:text-white"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
+
+              <div className="mb-4 relative">
+                <input
+                  className="border border-white text-white bg-transparent w-full px-4 py-2 rounded-lg focus:outline-none"
+                  id="Confirmpassword"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-400 hover:text-white"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
             <div className="text-center">
-            <button className="mb-2 bg-gradient-to-r from-[#2E4DEF] to-[#0E148E] rounded-lg text-white py-[2%] w-full cursor-pointer text-lg font-light">
+            <button className="mb-2 bg-gradient-to-r from-[#2E4DEF] to-[#0E148E] rounded-lg text-white py-[2%] w-full cursor-pointer text-lg font-light transition duration-300 hover:from-[#253CBF] hover:to-[#0A106D]">
   Signup
 </button>
+
             </div>
           </form>
 
@@ -103,6 +126,7 @@ const Signup: React.FC = () => {
             <a href="/" className="text-white">Support</a>
             <a href="/" className="text-white">Customer Care</a>
           </div>
+        </div>
         </div>
       </div>
     </div>
