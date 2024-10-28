@@ -1,6 +1,6 @@
 import React from 'react';
-import backgroundImage from '../assets/ForgetPassword_Bg.svg';
-import Logo from "../assets/Logo.svg";
+import backgroundImage from '../../assets/ForgetPassword_Bg.svg';
+import Logo from "../../assets/Logo.svg";
 
 export const ForgetPassword: React.FC = () => {
     return (
@@ -28,6 +28,7 @@ export const ForgetPassword: React.FC = () => {
                         <div className="w-5/6 border-t-2 border-dashed border-gray-700"></div>
                     </div>
                 </div>
+
 
 <div className='flex-0 pr-10'>
                 <div className=" text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg">
