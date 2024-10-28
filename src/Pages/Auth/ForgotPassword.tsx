@@ -1,6 +1,6 @@
 import React from 'react';
-import backgroundImage from '../assets/ForgetPassword_Bg.svg';
-import Logo from "../assets/Logo.svg";
+import backgroundImage from '../../assets/ForgetPassword_Bg.svg';
+import Logo from "../../assets/Logo.svg";
 
 export const ForgetPassword: React.FC = () => {
     return (
