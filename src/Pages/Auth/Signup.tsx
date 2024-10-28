@@ -26,25 +26,25 @@ const Signup: React.FC = () => {
 
       <div className="flex">
 
-        <div className="text-white flex-1 pl-20 pt-20 mt-20">
-          <h1 className="text-7xl font-sans font-semibold mb-4">Roll the Carpet .!</h1>
-          <div className="flex items-center justify-center my-6">
-            <button className="border border-white px-6 py-2 italic font-semibold hover:bg-white hover:text-black transition duration-300">
-              Skip the lag?
-            </button>
-            <div className="w-5/6 border-t-2 border-dashed border-gray-700"></div>
-          </div>
-        </div>
+      <div className="text-white md:flex-1 pl-10 md:pl-20 pt-10 md:pt-20 mt-10 md:mt-20">
+    <h1 className="text-5xl md:text-5xl lg:text-7xl font-sans font-semibold mb-4">Roll the Carpet .!</h1>
+    <div className="flex items-center justify-center my-4 md:my-6">
+      <button className="border border-white px-4 py-2 md:px-6 md:py-2 italic font-semibold hover:bg-white hover:text-black transition duration-300">
+        Skip the lag?
+      </button>
+      <div className="hidden md:block w-5/6 border-t-2 border-dashed border-gray-700 ml-4"></div>
+    </div>
+  </div>
 
-       <div className='flex-0 pr-10 pb-4'>
-        <div className=" text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg ">
-          <h2 className="text-3xl font-sans font-semibold mb-0 mt-4">Signup</h2>
-          <p className="mb-2">Just some details to get you in!</p>
+       <div className='flex-0 lg:pr-10 md:pr-6 pb-4'>
+        <div className=" text-white border border-white bg-transparent backdrop-filter backdrop-blur-md lg:p-10 md:p-6 rounded-2xl shadow-lg ">
+          <h2 className="lg:text-3xl md:text-3xl font-sans font-semibold mb-2 mt-4">Signup</h2>
+          <p className="mb-2 md:text-sm">Just some details to get you in!</p>
 
           <form>
             <div className="mb-4">
               <input
-                className="border border-white bg-transparent w-full px-4 py-2 text-white rounded-lg focus:outline-none"
+                className="border border-white bg-transparent w-full lg:px-4 lg:py-2 md:py-1 md:px-2 text-white rounded-lg focus:outline-none"
                 id="username"
                 type="text"
                 placeholder="Username"
@@ -52,7 +52,7 @@ const Signup: React.FC = () => {
             </div>
             <div className="mb-4">
               <input
-                className="border border-white bg-transparent w-full px-4 py-2 text-black rounded-lg focus:outline-none"
+                className="border border-white bg-transparent w-full lg:px-4 lg:py-2 md:py-1 md:px-2 text-black rounded-lg focus:outline-none"
                 id="email"
                 type="email"
                 placeholder="Email/Phone"
@@ -61,7 +61,7 @@ const Signup: React.FC = () => {
             
             <div className="mb-4 relative">
                 <input
-                  className="border border-white text-white bg-transparent w-full px-4 py-2 rounded-lg focus:outline-none"
+                  className="border border-white text-white bg-transparent w-full lg:px-4 lg:py-2 md:py-1 md:px-2 rounded-lg focus:outline-none"
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
@@ -77,7 +77,7 @@ const Signup: React.FC = () => {
 
               <div className="mb-4 relative">
                 <input
-                  className="border border-white text-white bg-transparent w-full px-4 py-2 rounded-lg focus:outline-none"
+                  className="border border-white text-white bg-transparent w-full lg:px-4 lg:py-2 md:py-1 md:px-2 rounded-lg focus:outline-none"
                   id="Confirmpassword"
                   type={showPassword ? "text" : "password"}
                   placeholder="Confirm Password"
@@ -91,7 +91,7 @@ const Signup: React.FC = () => {
                 </button>
               </div>
             <div className="text-center">
-            <button className="mb-2 bg-gradient-to-r from-[#2E4DEF] to-[#0E148E] rounded-lg text-white py-[2%] w-full cursor-pointer text-lg font-light transition duration-300 hover:from-[#253CBF] hover:to-[#0A106D]">
+            <button className="mb-2 bg-gradient-to-r from-[#2E4DEF] to-[#0E148E] rounded-lg text-white lg:py-[2%] md:py-[1%] w-full cursor-pointer text-lg font-light transition duration-300 hover:from-[#253CBF] hover:to-[#0A106D]">
   Signup
 </button>
 
