@@ -32,14 +32,14 @@ export const ForgetPassword: React.FC = () => {
 
 
 <div className='flex-0 lg:pr-10 md:pr-5'>
-                <div className=" text-white border border-white bg-transparent backdrop-filter backdrop-blur-md lg:p-10 md:p-4 rounded-2xl shadow-lg">
+                <div className=" text-white border border-white bg-transparent backdrop-filter backdrop-blur-md lg:p-10 md:p-6 rounded-2xl shadow-lg">
                     <h2 className="lg:text-3xl md:text-2xl font-sans font-semibold mb-2 mt-4">Forgot Password ?</h2>
                     <p className="mb-2 md:text-sm">Please enter your email</p>
 
                     <form className='mb-12'>
                         <div className="mb-4">
                             <input
-                                className="border border-white bg-transparent w-full px-4 py-2 text-black rounded-lg focus:outline-none"
+                                className="border border-white bg-transparent w-full lg:px-4 lg:py-2 md:px-2 md:py-1 text-black rounded-lg focus:outline-none"
                                 id="email"
                                 type="email"
                                 placeholder="example@mail.com"
@@ -47,7 +47,7 @@ export const ForgetPassword: React.FC = () => {
                         </div>
 
                         <div className="text-center">
-                        <button className="bg-gradient-to-r from-[#E446B9] to-[#7A0731] text-white font-bold py-2 px-4 rounded-lg w-full transition-all duration-300 hover:from-[#C9369E] hover:to-[#640627]">
+                        <button className="bg-gradient-to-r from-[#E446B9] to-[#7A0731] text-white font-bold lg:py-2 lg:px-4 md:py-1 md:px-2 rounded-lg w-full transition-all duration-300 hover:from-[#C9369E] hover:to-[#640627]">
   Reset Password
 </button>
 

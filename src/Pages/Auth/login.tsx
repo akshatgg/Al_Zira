@@ -29,7 +29,7 @@ import Facebook from "../../assets/Facebook.svg";
 
       <div className='flex'>
         <div className="text-white flex-1 pl-20 pt-20 mt-20">
-          <h1 className="text-7xl font-sans font-semibold mb-4">Welcome Back .!</h1>
+          <h1 className="lg:text-7xl md:text-6xl font-sans font-semibold mb-4">Welcome Back .!</h1>
           <div className="flex items-center justify-center my-6">
             <button className="border border-white px-6 py-2 italic font-semibold hover:bg-white hover:border-white hover:text-black transition duration-300">
               Skip the lag ?
@@ -38,15 +38,15 @@ import Facebook from "../../assets/Facebook.svg";
           </div>
         </div>
 
-<div className='flex-0 pr-10'>
-        <div className=" max-w-full justify-center items-center text-white border border-white bg-transparent backdrop-filter backdrop-blur-md p-10 rounded-2xl shadow-lg ">
-          <h2 className="text-3xl font-sans font-semibold mb-0 mt-4">Login</h2>
-          <p className="mb-2">Glad you're back.!</p>
+<div className='flex-0 lg:pr-10 md:pr-5'>
+        <div className=" max-w-full justify-center items-center text-white border border-white bg-transparent backdrop-filter backdrop-blur-md lg:p-10 md:p-6 rounded-2xl shadow-lg ">
+          <h2 className="lg:text-3xl md:text-2xl font-sans font-semibold mb-1 mt-4">Login</h2>
+          <p className="mb-2 md:text-sm">Glad you're back.!</p>
 
           <form className='mb-4'>
             <div className="mb-4">
               <input
-                className="border border-white bg-transparent w-full px-4 py-2 text-white rounded-lg focus:outline-none"
+                className="border border-white bg-transparent w-full lg:px-4 lg:py-2 md:px-2 md:py-1 text-white rounded-lg focus:outline-none"
                 id="username"
                 type="text"
                 placeholder="Username"
@@ -54,7 +54,7 @@ import Facebook from "../../assets/Facebook.svg";
             </div>
             <div className="mb-4 relative">
                 <input
-                  className="border border-white text-white bg-transparent w-full px-4 py-2 rounded-lg focus:outline-none"
+                  className="border border-white text-white bg-transparent w-full lg:px-4 lg:py-2 md:px-2 md:py-1 rounded-lg focus:outline-none"
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
@@ -77,7 +77,7 @@ import Facebook from "../../assets/Facebook.svg";
               <label htmlFor="remember-me" className="text-white">Remember me</label>
             </div>
             <div className="text-center">
-            <button className="mb-2 bg-gradient-to-r from-[#6586FA] to-[#6B1C99] rounded-lg text-white py-[2%] w-full cursor-pointer text-lg font-light transition duration-300 hover:from-[#5263D8] hover:to-[#4E167A]">
+            <button className="mb-2 bg-gradient-to-r from-[#6586FA] to-[#6B1C99] rounded-lg text-white lg:py-[2%] md:py-[1%]  w-full cursor-pointer text-lg font-light transition duration-300 hover:from-[#5263D8] hover:to-[#4E167A]">
   Login
 </button>
 
