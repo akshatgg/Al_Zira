@@ -1,9 +1,9 @@
 
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./Components/login.tsx"
-import Signup from "./Components/Signup.tsx";
-import ForgotPassword from "./Components/ForgotPassword.tsx";
+import Login from "./Pages/Auth/login.tsx"
+import Signup from "./Pages/Auth/Signup.tsx";
+import ForgotPassword from "./Pages/Auth/ForgotPassword.tsx";
 
 function App() {
   return (
