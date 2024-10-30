@@ -20,14 +20,14 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
       <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8">
-        {/* <div>
+        <div>
           <img
             src={shopping}
             alt="shopping"
             className="w-6 h-auto md:w-8 lg:w-10 transform translate-y-1"
           />
         </div>
-        <div>
+        {/* <div>
           <img
             src={setting}
             alt="setting"
