@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import avatar from '../../assets/avatar.svg';
-import { Translate } from '@mui/icons-material';
+// import { Translate } from '@mui/icons-material';
 
 const UserMenu: React.FC = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);

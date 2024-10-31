@@ -10,7 +10,7 @@ export const Navbar: React.FC = () => {
     <div className="bg-black flex justify-between items-center px-4 py-3 md:px-6 lg:px-8">
       <div className="flex items-center space-x-3 md:space-x-4 lg:space-x-6">
         <div>
-          <img src={Logo} alt="Logo" className="w-8 h-auto md:w-10 lg:w-12" />
+          <img src={Logo} alt="Logo" className="w-8 h-auto md:w-10 lg:w-10" />
         </div>
         <div className="text-white text-lg md:text-xl lg:text-2xl whitespace-nowrap">
           F.R.I.D.A.Y
@@ -24,16 +24,16 @@ export const Navbar: React.FC = () => {
           <img
             src={shopping}
             alt="shopping"
-            className="w-6 h-auto md:w-8 lg:w-10 transform translate-y-1"
+            className="w-6 h-auto md:w-8 lg:w-10 transform translate-y-1 cursor-pointer"
           />
         </div>
-        {/* <div>
+        <div>
           <img
             src={setting}
             alt="setting"
-            className="w-5 h-auto md:w-7 lg:w-9 transform translate-y-1"
+            className="w-5 h-auto md:w-7 lg:w-9 transform translate-y-1 cursor-pointer"
           />
-        </div> */}
+        </div>
         <div>
           <UserMenu />
         </div>

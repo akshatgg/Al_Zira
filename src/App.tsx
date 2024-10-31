@@ -6,6 +6,7 @@ import { Navbar } from "./Pages/Navbar/Navbar.tsx";
 import {Prompt} from "./Pages/Prompt/Prompt.tsx";
 
 
+
 function App() {
   return (
     <div>
@@ -15,8 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navbar/>} />
         </Routes>
-   
-
+       
         
         <Routes>
           <Route>
