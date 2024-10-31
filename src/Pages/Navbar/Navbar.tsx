@@ -24,16 +24,16 @@ export const Navbar: React.FC = () => {
           <img
             src={shopping}
             alt="shopping"
-            className="w-6 h-auto md:w-8 lg:w-10 transform translate-y-1"
+            className="w-6 h-auto md:w-8 lg:w-10 transform translate-y-1 cursor-pointer"
           />
         </div>
-        {/* <div>
+        <div>
           <img
             src={setting}
             alt="setting"
-            className="w-5 h-auto md:w-7 lg:w-9 transform translate-y-1"
+            className="w-5 h-auto md:w-7 lg:w-9 transform translate-y-1 cursor-pointer"
           />
-        </div> */}
+        </div>
         <div>
           <UserMenu />
         </div>
