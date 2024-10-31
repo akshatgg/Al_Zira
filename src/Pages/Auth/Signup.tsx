@@ -118,7 +118,7 @@ const Signup: React.FC = () => {
           </div>
 
           <div className="text-center text-sm mt-4">
-            Already Registered ? <a href="/" className="text-white">Login</a>
+            Already Registered ? <a href="/login" className="text-white">Login</a>
           </div>
 
           <div className="flex justify-center mt-2 space-x-4 text-sm">
@@ -134,4 +134,4 @@ const Signup: React.FC = () => {
 };
 
 Signup.displayName = 'Signup';
-export default Signup;
+export default Signup; 
