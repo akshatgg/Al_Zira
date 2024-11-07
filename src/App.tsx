@@ -4,6 +4,7 @@ import Signup from "./Pages/Auth/Signup.tsx";
 import ForgotPassword from "./Pages/Auth/ForgotPassword.tsx";
 import { Navbar } from "./Pages/Navbar/Navbar.tsx";
 import {Prompt} from "./Pages/Prompt/Prompt.tsx";
+import { Loader } from "./Components/Loader/Loader.jsx";
 
 
 
@@ -15,6 +16,7 @@ function App() {
         
         <Routes>
           <Route path="/" element={<Navbar/>} />
+          <Route path="/loader" element={<Loader/>} />
         </Routes>
        
         

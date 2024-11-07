@@ -13,7 +13,7 @@ export const Prompt: React.FC = () => {
         </h2>
         <p className="text-gray-400 lg:text-xl md:text-lg text-sm">What Can I Help With?</p>
 
-        {/* Increased the width of the input container */}
+        
         <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4">
           <input
             type="text"
