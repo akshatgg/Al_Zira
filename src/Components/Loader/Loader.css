@@ -21,7 +21,7 @@ body {
     background-color: #04181D;
     border-radius: 50%;
     animation: shrink 1s cubic-bezier(0.2, 0.055, 0.775, 0.29) forwards;
-    animation-delay: 1.2s;
+    animation-delay: 0.7s;
     transform-origin: bottom;
 }
 
@@ -34,84 +34,72 @@ body {
         transform: scale(0);
     }
 }
+
+
+
 .img {
     width: 100px;
     height: 200px;
     position: relative;
     bottom: 80px;
     opacity: 0;
-    animation: fadeIn 0.5s 2s forwards, movedown 1s 2s forwards, jiggle 2s 3s ease-in-out forwards, shiftLeft 2s 5s forwards, shake 2s 7s ease-in-out forwards;
-    left: 0; /* Start position */
+    animation: bounceSequence 3.5s ease-in-out forwards;
+    animation-delay: 0.5s;
+    left: 0;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes movedown {
+@keyframes bounceSequence {
+    /* Fade-in */
     0% {
+        opacity: 0;
         transform: translateY(0) scale(1);
     }
-    100% {
-        transform: translateY(100px) scale(0.7); /* Move image down */
-    } 
-}
+    15% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 
-@keyframes jiggle {
-    0% {
-        transform: translateY(100px) scale(0.7);
-    }
-    20% {
-        transform: translateY(105px) scale(0.72);
-    }
-    40% {
-        transform: translateY(98px) scale(0.7);
-    }
-    60% {
-        transform: translateY(102px) scale(0.72);
-    }
-    80% {
-        transform: translateY(99px) scale(0.7);
-    }
-    100% {
-        transform: translateY(100px) scale(0.7); /* Return to original position */
-    }
-}
-
-@keyframes shiftLeft {
-    0% {
-        left: 0;
-        transform: translateY(50%) scale(0.7);
-    }
-    100% {
-        left: -100px;
-        transform: translateY(50%) scale(0.7); /* Shift the image left */
-    }
-}
-
-@keyframes shake {
-    0% {
-        transform: translateX(0px) translateY(50%) scale(0.7);
-    }
+    /* Fast initial drop */
     25% {
-        transform: translateX(10px) translateY(50%) scale(0.7);
+        transform: translateY(110px) scale(0.6); /* Fast drop down */
     }
-    50% {
-        transform: translateX(-5px) translateY(50%) scale(0.7);
+    45% {
+        transform: translateY(80px) scale(0.75); /* Bounce up */
+    }
+    55% {
+        transform: translateY(100px) scale(0.65); /* Slight drop */
+    }
+    65% {
+        transform: translateY(90px) scale(0.72); /* Small bounce up */
     }
     75% {
-        transform: translateX(2px) translateY(50%) scale(0.7);
+        transform: translateY(110px) scale(0.7); /* Final small bounce */
+    }
+  
+    
+    /* Shift left */
+    80% {
+        transform: translateX(-100px) translateY(50%) scale(0.7);
+    }
+    
+    /* Shake effect */
+    85%{
+        transform: translateX(-95px) translateY(50%) scale(0.7) 
+    }
+    90% {
+        transform: translateX(-105px) translateY(50%) scale(0.7);
+    }
+    93% {
+        transform: translateX(-95px) translateY(50%) scale(0.7);
+    }
+    96% {
+        transform: translateX(-105px) translateY(50%) scale(0.7);
     }
     100% {
-        transform: translateX(0px) translateY(50%) scale(0.7);
+        opacity: 1;
+        transform: translateX(-100px) translateY(50%) scale(0.7);
     }
 }
-
 
 
 
