@@ -16,7 +16,7 @@ function App() {
         
         <Routes>
           <Route path="/" element={<Navbar/>} />
-          {/* <Route path="/loader" element={<Loader/>} /> */}
+          <Route path="/loader" element={<Loader/>} /> 
         </Routes>
        
         
