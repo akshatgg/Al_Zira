@@ -1,7 +1,14 @@
 // src/redux/slices/AuthSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, OAuthProvider } from 'firebase/auth';
-import { auth } from '../../firebaseConfig.ts';
+import { 
+  getAuth, 
+  signInWithEmailAndPassword, 
+  signInWithPopup, 
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  GithubAuthProvider,
+  browserPopupRedirectResolver
+} from 'firebase/auth';import { auth } from '../../firebaseConfig.ts';
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig.ts';
 
@@ -65,26 +72,33 @@ export const handleEmailLogin = createAsyncThunk(
 // Async Thunk to handle social login
 export const handleSocialLogin = createAsyncThunk(
   'auth/loginSocial',
-  async (provider: OAuthProvider, { rejectWithValue }) => {
+  async (provider: GoogleAuthProvider | FacebookAuthProvider | GithubAuthProvider, { rejectWithValue }) => {
     try {
       // Sign in with the chosen social provider (Google, Facebook, etc.)
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider,browserPopupRedirectResolver);
+      if (result.user) {
+        const userDoc = await getDoc(doc(db, 'users', result.user.uid));
+        console.log(userDoc);
+        
+        if (!userDoc.exists()) {
+          await updateDoc(doc(db, 'users', result.user.uid), {
+            lastLogin: new Date(),
+            loginMethod: provider.providerId
+          });
+        }
+
+        
+      }
 
       // Get user data from result
       const user = {
         displayName: result.user.displayName || 'User',
         email: result.user.email || '',
       };
-
-      // Fetch user document from Firestore to update last login time
-      const userDoc = await getDoc(doc(db, 'users', result.user.uid));
-      if (!userDoc.exists()) {
-        // Create new user document if it doesn't exist
-        await updateDoc(doc(db, 'users', result.user.uid), {
-          lastLogin: new Date(),
-          loginMethod: provider.providerId, // Save the provider (Google, Facebook, etc.)
-        });
-      }
+      console.log(user);
+      
+      
+    
 
       // Return user data
       return user;
