@@ -1,0 +1,80 @@
+body {
+    background-color: black;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.oval {
+    width: 400px;
+    height: 150px;
+    background-color: #04181D;
+    border-radius: 50%;
+    animation: shrink 1s cubic-bezier(0.2, 0.055, 0.775, 0.29) forwards;
+    animation-delay: 0.7s;
+    transform-origin: bottom;
+}
+
+@keyframes shrink {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+.img {
+    width: 100px;
+    height: 200px;
+    position: relative;
+    bottom: 80px;
+    opacity: 0;
+    animation: bounceSequence 3.5s ease-in-out forwards, last 0.5s ease-in-out forwards;
+    animation-delay: 0.6s,4.8s;
+    left: 0;
+}
+
+@keyframes bounceSequence {
+    0% { opacity: 0; transform: translateY(0) translateX(50%) scale(1); }
+    15% { opacity: 1; transform: translateY(0) translateX(50%) scale(1); }
+    25% { transform: translateY(110px) translateX(50%) scale(0.6); }
+    45% { transform: translateY(80px) translateX(50%) scale(0.75); }
+    55% { transform: translateY(100px) translateX(50%) scale(0.65); }
+    65% { transform: translateY(90px) translateX(50%) scale(0.72); }
+    75% { transform: translateY(110px) translateX(50%) scale(0.7); }
+    80% { transform: translateX(-100px)  translateY(50%) scale(0.7); }
+    85% { transform: translateX(-95px) translateY(50%) scale(0.7); }
+    90% { transform: translateX(-105px) translateY(50%) scale(0.7); }
+    93% { transform: translateX(-95px) translateY(50%) scale(0.7); }
+    96% { transform: translateX(-105px) translateY(50%) scale(0.7); }
+    100% { opacity: 1; transform: translateX(-95px) translateY(50%) scale(0.7); }
+}
+@keyframes last {
+    0% {opacity: 1; transform: translateX(-95px) translateY(50%) scale(0.7);}
+    100%{opacity: 1; transform: translateX(-65px) translateY(50%) scale(0.7);}
+    
+}
+.content {
+    color: white;
+    position: relative;
+    font-size: x-large;
+    opacity: 0;
+    transform: translateX(0px) translateY(50%);
+    transition: opacity 1s, transform 1s;
+}
+
+.content.show {
+    opacity: 1;
+    transform: translateX(-50px) translateY(50%);
+}

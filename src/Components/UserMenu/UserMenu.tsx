@@ -19,7 +19,7 @@ const UserMenu: React.FC = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  
   return (
     <Box sx={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
       <Tooltip title="Open settings">
