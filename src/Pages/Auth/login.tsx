@@ -22,6 +22,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (user) {
       console.log('User data updated:', user.displayName, user.email);
+      console.log(user);
     }
   }, [user]);
 
@@ -64,7 +65,7 @@ const Login: React.FC = () => {
       console.error('Error:', e.message);
     }
   };
-
+  
   return (
     <div className="flex-1 items-center min-h-screen"
     style={{
