@@ -4,15 +4,21 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
   server: {
+    // Uncomment and configure the proxy if needed
     // proxy: {
-    //   'api/auth/user' : {
+    //   '/api/auth/user': {
     //     target: "http://localhost:5000",
     //     changeOrigin: true
     //   }
     // },
-        watch: {
-      usePolling: true
-    }
-  }
+    watch: {
+      usePolling: true,
+    },
+  },
 })
