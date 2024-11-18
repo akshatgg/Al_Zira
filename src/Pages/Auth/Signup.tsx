@@ -75,6 +75,9 @@ const Signup: React.FC = () => {
   const handleSocialSignIn = async (provider: GoogleAuthProvider | FacebookAuthProvider | GithubAuthProvider) => {
     try {
       const result = await dispatch(handleSocialSignup(provider));
+      console.log(result);
+      // console.log(result.user);
+      
       
       if (handleSocialSignup.fulfilled.match(result)) {
         navigate('/');

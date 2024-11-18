@@ -17,7 +17,7 @@ const Login: React.FC = () => {
   const { user, loading, error, rememberMe } = useSelector((state: RootState) => state.auth);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [rememberMeState, setRememberMeState] = useState(rememberMe);
+  const [rememberMeState, setRememberMeState] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -137,8 +137,8 @@ const Login: React.FC = () => {
               <input
                 id="remember-me"
                 type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
+                checked={rememberMeState}
+                onChange={(e) => setRememberMeState(e.target.checked)}
                 className="mr-2 rounded text-indigo-500 focus:ring-indigo-500"
               />
               <label htmlFor="remember-me" className="text-white">Remember me</label>

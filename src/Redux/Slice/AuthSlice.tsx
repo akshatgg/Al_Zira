@@ -97,8 +97,11 @@ export const handleSocialLogin = createAsyncThunk(
 
       // Get user data from result
       const user = {
-        displayName: result.user.displayName || 'User',
+        name: result.user.displayName || 'User',
         email: result.user.email || '',
+        username:result.user.username ||'',
+        uid: result.user.uid||''
+        
       };
       console.log(user);
       
@@ -177,9 +180,16 @@ export const handleEmailSignup = createAsyncThunk(
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
       // Define user data for Firestore
+      const user = {
+        uid: userCredential.user.uid,
+        username: userCredential.user.username || "",
+        displayName: userCredential.user.displayName || 'User',
+        email: userCredential.user.email || '',
+      };
+      console.log(user)
       
       // Save user data to Firestore
-      const isUserDataSaved = await saveUserData(userCredential.user.uid, userData);
+      const isUserDataSaved = await saveUserData(userCredential.user.uid, user);
       if (!isUserDataSaved) {
         return rejectWithValue('Failed to save user data. Please try again.');
       }
@@ -188,13 +198,6 @@ export const handleEmailSignup = createAsyncThunk(
       if (rememberMe) {
         localStorage.setItem('rememberedEmail', email);
       }
-      const user = {
-        uid: userCredential.user.uid,
-        username: userCredential.user.username || "",
-        displayName: userCredential.user.displayName || 'User',
-        email: userCredential.user.email || '',
-      };
-      console.log(user)
       return {
        user
       };
@@ -217,25 +220,28 @@ export const handleSocialSignup = createAsyncThunk(
     try {
       // Sign in with popup using the specified provider
       const result = await signInWithPopup(auth, provider,browserPopupRedirectResolver);
-
+      
       // Check if user data is available
       if (result.user) {
         const userData = {
-          username: result.user.displayName || 'User',
+          name: result.user.displayName || 'User',
           email: result.user.email || '',
           provider: provider.providerId ||'',
+          username: result.user.username || '',
         };
-
+        
         // Save user data to Firestore
         const isUserDataSaved = await saveUserData(result.user.uid, userData);
         if (!isUserDataSaved) {
           return rejectWithValue('Failed to save user data. Please try again.');
         }
+        console.log(isUserDataSaved);
 
         return {
           uid: result.user.uid,
-          username: userData.username,
+          name: userData.name,
           email: userData.email,
+          username: userData.username,
         };
       }
     } catch (error: any) {
@@ -285,7 +291,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(handleSocialLogin.fulfilled, (state, action: PayloadAction<{ displayName: string; email: string }>) => {
+      .addCase(handleSocialLogin.fulfilled, (state, action: PayloadAction<{ name: string; email: string;username:string;uid:string }>) => {
         state.loading = false;
         state.user = action.payload;
       })
@@ -301,7 +307,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(handleEmailSignup.fulfilled, (state, action: PayloadAction<{ uid: string; username: string; email: string }>) => {
+      .addCase(handleEmailSignup.fulfilled, (state, action: PayloadAction<{ uid: string;name:string; username: string; email: string }>) => {
         state.loading = false;
         state.user = action.payload;
       })
@@ -315,11 +321,11 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null; // Reset error state when starting a new signup
       })
-      .addCase(handleSocialSignup.fulfilled, (state, action) => {
+      .addCase(handleSocialSignup.fulfilled, (state, action: PayloadAction<{username: string; email: string ;name: string;uid: string}>) => {
         state.loading = false;
         state.user = action.payload; // Set user data on successful signup
       })
-      .addCase(handleSocialSignup.rejected, (state, action) => {
+      .addCase(handleSocialSignup.rejected, (state, action: PayloadAction<string | null>) => {
         state.loading = false;
         state.error = action.payload || 'Social signup failed. Please try again.'; // Set error message if signup fails
       });
