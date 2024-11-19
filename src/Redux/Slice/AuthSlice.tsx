@@ -16,12 +16,15 @@ import { db } from '../../firebaseConfig.ts';
 // Types
 interface AuthState {
   user: {
-    username(arg0: string, displayName: string | null, email: string | null, username: any): unknown; displayName: string | null; email: string | null 
-} | null;
+    name: string | null;
+    email: string | null;
+    username: string | null;
+  } | null;
   loading: boolean;
   error: string | null;
   rememberMe: boolean;
 }
+
 
 const initialState: AuthState = {
   user: null,
@@ -54,7 +57,7 @@ export const handleEmailLogin = createAsyncThunk(
 
       // Save user data for Redux
       const user = {
-        displayName: userCredential.user.displayName || 'User', // Default if displayName is null
+        name: userCredential.user.displayName || 'User', // Default if displayName is null
         email: userCredential.user.email || '',
         
       };
@@ -95,7 +98,7 @@ export const handleSocialLogin = createAsyncThunk(
         
       }
 
-      // Get user data from result
+      // Get user data from result 
       const user = {
         name: result.user.displayName || 'User',
         email: result.user.email || '',
@@ -182,8 +185,8 @@ export const handleEmailSignup = createAsyncThunk(
       // Define user data for Firestore
       const user = {
         uid: userCredential.user.uid,
-        username: userCredential.user.username || "",
-        displayName: userCredential.user.displayName || 'User',
+        username: username || "",
+        name: userCredential.user.displayName || 'User',
         email: userCredential.user.email || '',
       };
       console.log(user)
@@ -277,7 +280,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(handleEmailLogin.fulfilled, (state, action: PayloadAction<{ user: { displayName: string; email: string }; emailVerified: boolean }>) => {
+      .addCase(handleEmailLogin.fulfilled, (state, action: PayloadAction<{ user: { name: string; email: string }; emailVerified: boolean }>) => {
         state.loading = false;
         state.user = action.payload.user;
       })

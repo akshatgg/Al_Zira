@@ -7,11 +7,18 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import avatar from '../../assets/avatar.svg';
+import { useSelector } from 'react-redux';
 // import { Translate } from '@mui/icons-material';
 
 const UserMenu: React.FC = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
+  const { user, loading, error, rememberMe } = useSelector((state: RootState) => state.auth);
+React.useEffect(
+  () => {
+  console.log(user);
+  
+  }
+)
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -80,7 +87,8 @@ const UserMenu: React.FC = () => {
               WebkitTextFillColor: 'transparent'
             }}
           >
-            Mukesh
+             {user?.name ? user.name.split(' ')[0] : "Guest"}
+
           </Typography>
           <Avatar 
             alt="User Avatar" 
