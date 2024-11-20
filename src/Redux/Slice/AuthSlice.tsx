@@ -55,7 +55,7 @@ const handleAuthErrorlogin = (error: any) => {
 // Async Thunk to handle email login
 export const handleEmailLogin = createAsyncThunk(
   'auth/login',
-  async ({ email, password, rememberMe ,isloggedIn }: { email: string; password: string; rememberMe: boolean }, { rejectWithValue }) => {
+  async ({ email, password, rememberMe }: { email: string; password: string; rememberMe: boolean }, { rejectWithValue }) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
@@ -111,12 +111,11 @@ export const handleSocialLogin = createAsyncThunk(
         
       };
       console.log(user);
-      
-      
+     
     
 
       // Return user data
-      return user;
+      return {user};
     } catch (error: any) {
       const errorMessage = handleAuthErrorlogin(error); // Handle and return the error message
       return rejectWithValue(errorMessage);
@@ -265,8 +264,9 @@ export const handleSocialSignup = createAsyncThunk(
 export const handleLogout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
     await signOut(auth); // Firebase sign out
-    localStorage.removeItem('isloggedin'); // Clear local storage
+    
     localStorage.removeItem('data');
+    
     return true; // Indicate successful logout
   } catch (error: any) {
     console.error('Logout error:', error);
@@ -321,14 +321,19 @@ const authSlice = createSlice({
       .addCase(handleSocialLogin.fulfilled, (state, action: PayloadAction<{user:{ name: string; email: string;username:string;uid:string }}>) => {
         state.isloggedin =true;
         state.loading = false;
-        localStorage.setItem("isloggedin", JSON.stringify(true));
+        console.log("hi");
+        
+        console.log('Payload Data:', action.payload.user);
 
-        localStorage.setItem("data", JSON.stringify(action.payload.user));
+        // Store the user in localStorage
+        localStorage.setItem('isloggedin', JSON.stringify(true));
+        localStorage.setItem('data', JSON.stringify(action.payload.user));
         state.user = action.payload;
       })
       .addCase(handleSocialLogin.rejected, (state, action) => {
         state.isloggedin =false;
         state.loading = false;
+        
         state.error = action.payload as string; // Handle errors from rejected state
       })
 
