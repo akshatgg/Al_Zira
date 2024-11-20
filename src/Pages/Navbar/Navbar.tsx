@@ -6,6 +6,8 @@ import shopping from "../../assets/Shopping_bag.svg";
 import UserMenu from "../../Components/UserMenu/UserMenu.tsx";
 
 export const Navbar: React.FC = () => {
+  
+
   return (
     <div className="bg-black flex justify-between items-center px-4 py-3 md:px-6 lg:px-8">
       <div className="flex items-center space-x-3 md:space-x-4 lg:space-x-6">
