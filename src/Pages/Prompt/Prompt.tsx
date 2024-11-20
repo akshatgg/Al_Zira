@@ -1,90 +1,187 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SendIcon from '../../assets/send-icon.svg';
 import Media from '../../assets/media.svg';
+import Plus from '../../assets/Plus.svg';
+import Ellipse from '../../assets/Ellipse.svg';
+import Mic from '../../assets/Mic.svg';
+import Avatar from '../../assets/Avatar Placeholder.svg';
+import Keyboard from '../../assets/Keyboard.svg';
+import Semicircle from '../../assets/Semicircle.svg';
+import AnswerIcon from '../../assets/AnswerIcon.svg';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '@reduxjs/toolkit/query';
-import {Circularnav} from '../../Components/Circularnav/Circularnav.tsx'
+// Dummy JSON data
+const dummyData = [
+  { question: "What's the Tesla share price today?", answer: "Tesla's share price is $169.84, down by -8.05 (4.53%)" },
+  { question: "What's the weather today?", answer: "The weather today is sunny with a high of 75°F." },
+  { question: "Suggest a movie.", answer: "I suggest watching 'Inception'." },
+  { question: "Play a song.", answer: "Playing 'Shape of You' by Ed Sheeran." },
+];
+
 export const Prompt: React.FC = () => {
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploading, setUploading] = useState(false);
-  const { user, loading, error, rememberMe } = useSelector((state: RootState) => state.auth);
-  
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [input, setInput] = useState('');
+  const [chat, setChat] = useState<{ question: string; answer: string }[]>([]);
+  const [hasSearched, setHasSearched] = useState(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setUploading(true);
-      setUploadProgress(0);
-
-      // Simulate upload progress
-      const uploadInterval = setInterval(() => {
-        setUploadProgress(prev => {
-          if (prev >= 100) {
-            clearInterval(uploadInterval);
-            setUploading(false);
-            return 100;
-          }
-          return prev + 10;
-        });
-      }, 300); // Adjust interval duration for upload speed simulation
-    }
+  const handleToggleExpand = () => {
+    setIsExpanded((prevState) => !prevState);
   };
 
+  const handleRequest = () => {
+    if (input.trim() === '') return;
+
+    if (!hasSearched) {
+      setHasSearched(true);
+      setChat([{ question: "", answer: "Hi! How can I help you today?" }]);
+    }
+
+    const response = dummyData.find(
+      (item) => item.question.toLowerCase() === input.toLowerCase()
+    );
+
+    const newChat = response
+      ? { question: input, answer: response.answer }
+      : { question: input, answer: "I'm not sure about that." };
+
+    setChat((prevChat) => [...prevChat, newChat]);
+    setInput('');
+  };
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chat]);
+
   return (
-    <div className="bg-black lg:h-screen xl:h-[calc(100vh-9vh)] md:h-screen h-screen text-center relative">
-      
-    <Circularnav/>
+    <div className="bg-black text-center relative text-white  overflow-y-auto">
+      {/* Plus icon with expanded menu */}
+      <div
+        className="fixed top-2/4 left-10 w-10 h-10 -mt-20 cursor-pointer"
+        onClick={handleToggleExpand}
+      >
+        <img src={Ellipse} alt="Ellipse" className="w-full h-full" />
+        <div
+          className={`absolute inset-0 m-auto transition-transform duration-300 ${
+            isExpanded ? 'rotate-45' : ''
+          }`}
+        >
+          <img src={Plus} alt="Plus" className="p-1.5" />
+        </div>
+        {isExpanded && (
+          <div className="expanded-items">
+          <img src={Semicircle} alt="semicircle" className="semicircle absolute -inset-4 transform scale-500" />
 
-
-
-      <div className="lg:space-y-4 md:space-y-3 space-y-2 xl:pt-[10%] lg:pt-[15%] md:pt-[20%] pt-[19%]">
-        <h2 className="lg:text-4xl md:text-3xl text-2xl font-sans bg-gradient-to-r from-blue-400 to-pink-400 inline-block bg-clip-text text-transparent">
-        Hello, {user?.name || "Guest"}
-        </h2>
-        <p className="text-gray-400 lg:text-xl md:text-lg text-sm">What Can I Help With?</p>
-
-        <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4">
-          <input
-            type="text"
-            placeholder="Ask F.R.I.D.A.Y"
-            className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-transparent border border-gray-800"
-          />
-          <img src={SendIcon} alt="SendIcon" className="absolute inset-y-1 right-5 p-0 w-8 h-8" />
-          <label htmlFor="file-upload" className="absolute inset-y-3 left-5 p-0 w-4 h-4 cursor-pointer">
-            <img src={Media} alt="Media" />
-          </label>
-          <input
-            id="file-upload"
-            type="file"
-            onChange={handleFileChange}
-            className="hidden"
-          />
-
-          {uploading && (
-            <div className="absolute inset-x-0 top-12 w-full bg-gray-700 rounded-lg overflow-hidden">
-              <div
-                style={{ width: `${uploadProgress}%` }}
-                className="bg-blue-500 h-1 transition-all duration-200"
-              ></div>
+          <div className="icon-container absolute" style={{ transform: 'rotate(-90deg) translate(200px)' }}>
+            <div className="icon w-12 h-12 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center rotate-90 hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
+              <img src={Mic} alt="Microphone" className="icon-image w-6 h-6 hover:brightness-150" />
             </div>
-          )}
+          </div>
+
+          <div className="icon-container absolute" style={{ transform: 'rotate(-25deg) translate(90px)' }}>
+            <div className="icon w-12 h-12 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
+              <img src={Keyboard} alt="Keyboard" className="icon-image w-6 h-6 hover:brightness-150" />
+            </div>
+          </div>
+
+          <div className="icon-container absolute" style={{ transform: 'rotate(90deg) translate(135px)' }}>
+            <div className="icon w-12 h-12 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center -rotate-90 hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
+              <img src={Avatar} alt="Avatar" className="icon-image w-6 h-6 hover:brightness-150" />
+            </div>
+          </div>
         </div>
 
-        <div className="lg:mt-6 md:mt-6 mt-5 pb-20 space-x-3 flex justify-center">
-          <button className="text-white bg-transparent border border-orange-400 lg:py-2 lg:px-4 md:py-1 md:px-2 py-1 px-2 rounded-lg hover:bg-gray-700 text-sm">Suggest a movie.</button>
-          <button className="text-white bg-transparent border border-green-700 lg:py-2 lg:px-4 md:py-1 md:px-2 py-1 px-2 rounded-lg hover:bg-gray-700 text-sm">What's the weather today?</button>
-          <button className="text-white bg-transparent border border-red-600 lg:py-2 lg:px-4 md:py-1 md:px-2 py-1 px-2 rounded-lg hover:bg-gray-700 text-sm">Play a song.</button>
-        </div>
+        )}
       </div>
 
-      <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-700 font-mono text-sm">
-        F.R.I.D.A.Y Can make Mistakes. So Check Important Info
-      </p>
+      <div className="flex flex-col h-screen justify-center items-center pb-80 lg:pt-[10%] md:pt-[15%] pt-[20%]">
+        {!hasSearched ? (
+          <>
+            <h2 className="lg:text-4xl md:text-3xl text-2xl font-sans bg-gradient-to-r from-blue-400 to-pink-400 inline-block bg-clip-text text-transparent">
+              Hello, Mukesh Anand G
+            </h2>
+            <p className="text-gray-400 lg:text-xl md:text-lg text-sm">What Can I Help With?</p>
+
+            <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4 mt-4">
+              <input
+                type="text"
+                placeholder="Ask F.R.I.D.A.Y"
+                className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-transparent border border-gray-800"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+              <img
+                src={SendIcon}
+                alt="SendIcon"
+                className="absolute inset-y-1 right-5 p-0 w-8 h-8 cursor-pointer"
+                onClick={handleRequest}
+              />
+              <img src={Media} alt="Media" className="absolute inset-y-3 left-5 p-0 w-4 h-4 cursor-pointer" />
+            </div>
+
+            <div className="mt-5 pb-20 space-x-3 flex justify-center">
+              <button
+                className="text-white bg-transparent border border-orange-400 py-1 px-2 rounded-lg hover:bg-gray-700 text-sm"
+                onClick={() => setInput("Suggest a movie.")}
+              >
+                Suggest a movie.
+              </button>
+              <button
+                className="text-white bg-transparent border border-green-700 py-1 px-2 rounded-lg hover:bg-gray-700 text-sm"
+                onClick={() => setInput("What's the weather today?")}
+              >
+                What's the weather today?
+              </button>
+              <button
+                className="text-white bg-transparent border border-red-600 py-1 px-2 rounded-lg hover:bg-gray-700 text-sm"
+                onClick={() => setInput("Play a song.")}
+              >
+                Play a song.
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="flex flex-col w-full max-h-full max-w-xl mx-auto mt-0 p-0 space-y-4 bg-black" ref={chatContainerRef}>
+            {chat.map((msg, index) => (
+              <div key={index} className="flex flex-col">
+                <div className="text-white font-mono font-normal p-0 rounded-lg max-w-xs self-end ml-0 mr-0">
+                  <p>{msg.question}</p>
+                </div>
+                {msg.answer && (
+                  <div className=" text-white font-mono font-normal p-3 rounded-lg max-w-xs self-start mt-0">
+                    <div className='flex'>
+                      <img src={AnswerIcon} alt="AnswerIcon" className="w-6 h-6 mr-4" />
+                      <p>{msg.answer}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {hasSearched && (
+          <div className="fixed bottom-10 left-0 right-0 mx-auto w-full lg:max-w-3xl md:max-w-xl max-w-lg px-4">
+            <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4 mt-4">
+              <input
+                type="text"
+                placeholder="Ask F.R.I.D.A.Y"
+                className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-black border border-gray-800"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+              <img
+                src={SendIcon}
+                alt="SendIcon"
+                className="absolute inset-y-1 right-5 p-0 w-8 h-8 cursor-pointer"
+                onClick={handleRequest}
+              />
+              <img src={Media} alt="Media" className="absolute inset-y-3 left-5 p-0 w-4 h-4 cursor-pointer" />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
-
-Prompt.displayName = 'Prompt';
-export default Prompt;
