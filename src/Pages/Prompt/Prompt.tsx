@@ -42,6 +42,7 @@ export const Prompt: React.FC = () => {
 
   return (
     <div className="bg-black lg:h-screen xl:h-[calc(100vh-9vh)] md:h-screen h-screen text-center relative">
+      
       <div className="expanded-items absolute top-1/4 left-10 w-10 h-10 mt-24 cursor-pointer" onClick={handleToggleExpand}>
         <div className="absolute inset-0 w-full h-full">
           <img src={Ellipse} alt="Ellipse" className="absolute inset-0 w-full h-full" />

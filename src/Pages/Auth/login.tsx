@@ -20,7 +20,7 @@ const Login: React.FC = () => {
   const [rememberMeState, setRememberMeState] = useState(false);
 
   useEffect(() => {
-    if (user) {
+    if (user) { 
       console.log('User data updated:', user.displayName, user.email);
       console.log(user);
     }

@@ -8,7 +8,8 @@ import {
   FacebookAuthProvider,
   GithubAuthProvider,
   browserPopupRedirectResolver,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signOut
 } from 'firebase/auth';import { auth } from '../../firebaseConfig.ts';
 import { getDoc, doc, updateDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebaseConfig.ts';
@@ -16,6 +17,7 @@ import { db } from '../../firebaseConfig.ts';
 // Types
 interface AuthState {
   user: {
+    displayName(arg0: string, displayName: any, email: string | null): unknown;
     name: string | null;
     email: string | null;
     username: string | null;
@@ -23,6 +25,7 @@ interface AuthState {
   loading: boolean;
   error: string | null;
   rememberMe: boolean;
+  isloggedin: boolean;
 }
 
 
@@ -30,7 +33,8 @@ const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,
-  rememberMe: false, // Add rememberMe to store
+  rememberMe: false, 
+  isloggedin: localStorage.getItem("isloggedin") === "false"
 };
 
 // Handle authentication errors
@@ -51,7 +55,7 @@ const handleAuthErrorlogin = (error: any) => {
 // Async Thunk to handle email login
 export const handleEmailLogin = createAsyncThunk(
   'auth/login',
-  async ({ email, password, rememberMe }: { email: string; password: string; rememberMe: boolean }, { rejectWithValue }) => {
+  async ({ email, password, rememberMe ,isloggedIn }: { email: string; password: string; rememberMe: boolean }, { rejectWithValue }) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
@@ -258,6 +262,20 @@ export const handleSocialSignup = createAsyncThunk(
 
 
 
+export const handleLogout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
+  try {
+    await signOut(auth); // Firebase sign out
+    localStorage.removeItem('isloggedin'); // Clear local storage
+    localStorage.removeItem('data');
+    return true; // Indicate successful logout
+  } catch (error: any) {
+    console.error('Logout error:', error);
+    return rejectWithValue('Failed to logout. Please try again.');
+  }
+});
+            
+
+
 
 
 
@@ -277,28 +295,39 @@ const authSlice = createSlice({
     builder
       // Handle Email Login
       .addCase(handleEmailLogin.pending, (state) => {
+        state.isloggedin =false;
         state.loading = true;
         state.error = null;
       })
       .addCase(handleEmailLogin.fulfilled, (state, action: PayloadAction<{ user: { name: string; email: string }; emailVerified: boolean }>) => {
         state.loading = false;
+        localStorage.setItem("isloggedin", JSON.stringify(true));
+        state.isloggedin =true;
+        localStorage.setItem("data", JSON.stringify(action.payload.user));
         state.user = action.payload.user;
       })
       .addCase(handleEmailLogin.rejected, (state, action) => {
+        state.isloggedin =false;
         state.loading = false;
         state.error = action.payload as string; // Handle errors from rejected state
       })
 
       // Handle Social Login
       .addCase(handleSocialLogin.pending, (state) => {
+        state.isloggedin =false
         state.loading = true;
         state.error = null;
       })
-      .addCase(handleSocialLogin.fulfilled, (state, action: PayloadAction<{ name: string; email: string;username:string;uid:string }>) => {
+      .addCase(handleSocialLogin.fulfilled, (state, action: PayloadAction<{user:{ name: string; email: string;username:string;uid:string }}>) => {
+        state.isloggedin =true;
         state.loading = false;
+        localStorage.setItem("isloggedin", JSON.stringify(true));
+
+        localStorage.setItem("data", JSON.stringify(action.payload.user));
         state.user = action.payload;
       })
       .addCase(handleSocialLogin.rejected, (state, action) => {
+        state.isloggedin =false;
         state.loading = false;
         state.error = action.payload as string; // Handle errors from rejected state
       })
@@ -307,32 +336,57 @@ const authSlice = createSlice({
 
       //Handle Signup by Email
       .addCase(handleEmailSignup.pending, (state) => {
+        state.isloggedin =false;
         state.loading = true;
         state.error = null;
       })
-      .addCase(handleEmailSignup.fulfilled, (state, action: PayloadAction<{ uid: string;name:string; username: string; email: string }>) => {
+      .addCase(handleEmailSignup.fulfilled, (state, action: PayloadAction<{ user:{uid: string;name:string; username: string; email: string }}>) => {
+        state.isloggedin =true;
         state.loading = false;
+        localStorage.setItem("isloggedin", JSON.stringify(true));
+        localStorage.setItem("data", JSON.stringify(action.payload.user));
         state.user = action.payload;
       })
       .addCase(handleEmailSignup.rejected, (state, action: PayloadAction<string | null>) => {
+        state.isloggedin =false;
         state.loading = false;
         state.error = action.payload || 'Signup failed';
       })
 
       //Signup by social
       .addCase(handleSocialSignup.pending, (state) => {
+        state.isloggedin =false;
         state.loading = true;
         state.error = null; // Reset error state when starting a new signup
-      })
-      .addCase(handleSocialSignup.fulfilled, (state, action: PayloadAction<{username: string; email: string ;name: string;uid: string}>) => {
+      }) 
+      .addCase(handleSocialSignup.fulfilled, (state, action: PayloadAction<{user:{username: string; email: string ;name: string;uid: string}}>) => {
+        state.isloggedin =true;
         state.loading = false;
+        localStorage.setItem("isloggedin", JSON.stringify(true));
+        localStorage.setItem("data", JSON.stringify(action.payload.user));
         state.user = action.payload; // Set user data on successful signup
       })
       .addCase(handleSocialSignup.rejected, (state, action: PayloadAction<string | null>) => {
+        state.isloggedin =false;
         state.loading = false;
         state.error = action.payload || 'Social signup failed. Please try again.'; // Set error message if signup fails
-      });
+      })
 
+      .addCase(handleLogout.pending, (state) => {
+        state.loading = true; // Set loading state during logout
+        state.error = null; // Clear any previous errors
+      })
+      .addCase(handleLogout.fulfilled, (state) => {
+        state.user = null; // Reset user data
+        localStorage.setItem("isloggedin", JSON.stringify(false));
+        state.isloggedin = false; // Mark user as logged out
+        state.loading = false; // Reset loading state
+      })
+      .addCase(handleLogout.rejected, (state, action: PayloadAction<string | null>) => {
+        state.loading = true; // Stop loading
+        state.error = action.payload || 'Logout failed. Please try again.'; // Set error message
+      });
+      
   },
 });
 
