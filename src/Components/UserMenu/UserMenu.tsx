@@ -7,10 +7,37 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import avatar from '../../assets/avatar.svg';
+import {handleLogout } from '../../Redux/Slice/AuthSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
 // import { Translate } from '@mui/icons-material';
 
+
 const UserMenu: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const { user, loading, error, rememberMe } = useSelector((state: RootState) => state.auth);
+
+React.useEffect(
+  () => {
+  console.log(user);
+  
+  }
+)
+
+
+const handleLogoutClick = (event: React.MouseEvent<HTMLElement>) => {
+  event.preventDefault();
+  console.log('logout');
+  dispatch(handleLogout());
+  console.log('Navigating to home');
+  navigate('/login');
+};
+
+
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -80,7 +107,8 @@ const UserMenu: React.FC = () => {
               WebkitTextFillColor: 'transparent'
             }}
           >
-            Mukesh
+             {user?.name ? user.name.split(' ')[0] : "Guest"}
+
           </Typography>
           <Avatar 
             alt="User Avatar" 
@@ -106,7 +134,7 @@ const UserMenu: React.FC = () => {
         }}>
           <Typography sx={{ color: '#FFFFFF', fontSize: '14px' }}>Upgrade Plan</Typography>
         </MenuItem>
-        <MenuItem onClick={handleCloseUserMenu} sx={{
+        <MenuItem onClick={handleLogoutClick  } sx={{
           backgroundColor: '#6C6C6C',
           '&:hover': { backgroundColor: '#555555' },
           padding: '8px 16px',
