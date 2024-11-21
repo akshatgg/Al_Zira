@@ -1,16 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SendIcon from '../../assets/send-icon.svg';
 import Media from '../../assets/media.svg';
-import Plus from '../../assets/Plus.svg';
-import Ellipse from '../../assets/Ellipse.svg';
-import Mic from '../../assets/Mic.svg';
-import Avatar from '../../assets/Avatar Placeholder.svg';
-import Keyboard from '../../assets/Keyboard.svg';
-import Semicircle from '../../assets/Semicircle.svg';
 import AnswerIcon from '../../assets/AnswerIcon.svg';
 import { useSelector } from 'react-redux';
 import { RootState } from '@reduxjs/toolkit/query';
-
+import { Circularnav } from '../../Components/Circularnav/Circularnav';
 // Dummy JSON data
 const dummyData = [
   { question: "What's the Tesla share price today?", answer: "Tesla's share price is $169.84, down by -8.05 (4.53%)" },
@@ -20,7 +14,6 @@ const dummyData = [
 ];
 
 export const Prompt: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [input, setInput] = useState('');
   const [chat, setChat] = useState<{ question: string; answer: string }[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
@@ -52,9 +45,7 @@ export const Prompt: React.FC = () => {
 
 
 
-  const handleToggleExpand = () => {
-    setIsExpanded((prevState) => !prevState);
-  };
+
 
   const handleRequest = () => {
     if (input.trim() === '') return;
@@ -85,43 +76,7 @@ export const Prompt: React.FC = () => {
   return (
     <div className="bg-black text-center relative text-white  overflow-y-auto">
       {/* Plus icon with expanded menu */}
-      <div
-        className="fixed top-2/4 left-10 w-10 h-10 -mt-20 cursor-pointer"
-        onClick={handleToggleExpand}
-      >
-        <img src={Ellipse} alt="Ellipse" className="w-full h-full" />
-        <div
-          className={`absolute inset-0 m-auto transition-transform duration-300 ${
-            isExpanded ? 'rotate-45' : ''
-          }`}
-        >
-          <img src={Plus} alt="Plus" className="p-1.5" />
-        </div>
-        {isExpanded && (
-          <div className="expanded-items">
-          <img src={Semicircle} alt="semicircle" className="semicircle absolute -inset-4 transform scale-500" />
-
-          <div className="icon-container absolute" style={{ transform: 'rotate(-90deg) translate(200px)' }}>
-            <div className="icon w-12 h-12 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center rotate-90 hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
-              <img src={Mic} alt="Microphone" className="icon-image w-6 h-6 hover:brightness-150" />
-            </div>
-          </div>
-
-          <div className="icon-container absolute" style={{ transform: 'rotate(-25deg) translate(90px)' }}>
-            <div className="icon w-12 h-12 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
-              <img src={Keyboard} alt="Keyboard" className="icon-image w-6 h-6 hover:brightness-150" />
-            </div>
-          </div>
-
-          <div className="icon-container absolute" style={{ transform: 'rotate(90deg) translate(135px)' }}>
-            <div className="icon w-12 h-12 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center -rotate-90 hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
-              <img src={Avatar} alt="Avatar" className="icon-image w-6 h-6 hover:brightness-150" />
-            </div>
-          </div>
-        </div>
-
-        )}
-      </div>
+     <Circularnav/>
 
       <div className="flex flex-col h-screen justify-center items-center pb-80 lg:pt-[10%] md:pt-[15%] pt-[20%]">
         {!hasSearched ? (
