@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SendIcon from '../../assets/send-icon.svg';
 import Media from '../../assets/media.svg';
+
 import AnswerIcon from '../../assets/AnswerIcon.svg';
 import { useSelector } from 'react-redux';
 import { RootState } from '@reduxjs/toolkit/query';
 import { Circularnav } from '../../Components/Circularnav/Circularnav';
+
 // Dummy JSON data
 const dummyData = [
   { question: "What's the Tesla share price today?", answer: "Tesla's share price is $169.84, down by -8.05 (4.53%)" },
@@ -14,10 +16,12 @@ const dummyData = [
 ];
 
 export const Prompt: React.FC = () => {
+
   const [input, setInput] = useState('');
   const [chat, setChat] = useState<{ question: string; answer: string }[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
   const { user, loading, error, rememberMe } = useSelector((state: RootState) => state.auth);
@@ -42,6 +46,8 @@ export const Prompt: React.FC = () => {
       }, 300); // Adjust interval duration for upload speed simulation
     }
   };
+
+
 
 
 
@@ -76,6 +82,7 @@ export const Prompt: React.FC = () => {
   return (
     <div className="bg-black text-center relative text-white  overflow-y-auto">
       {/* Plus icon with expanded menu */}
+
      <Circularnav/>
 
       <div className="flex flex-col h-screen justify-center items-center pb-80 lg:pt-[10%] md:pt-[15%] pt-[20%]">
@@ -162,6 +169,8 @@ export const Prompt: React.FC = () => {
 
 
 
+  
+
         {hasSearched && (
           <div className="fixed bottom-10 left-0 right-0 mx-auto w-full lg:max-w-3xl md:max-w-xl max-w-lg px-4">
             <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4 mt-4">
@@ -169,9 +178,11 @@ export const Prompt: React.FC = () => {
                 type="text"
                 placeholder="Ask F.R.I.D.A.Y"
                 className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-black border border-gray-800"
+
                 value={input} 
                 onChange={(e) => setInput(e.target.value)}
               />
+
 
               <img
                 src={SendIcon}
@@ -179,6 +190,7 @@ export const Prompt: React.FC = () => {
                 className="absolute inset-y-1 right-5 p-0 w-8 h-8 cursor-pointer"
                 onClick={handleRequest}
               />
+
                 
                   
             <label htmlFor="file-upload" className="absolute inset-y-3 left-5 p-0 w-4 h-5 cursor-pointer">
@@ -198,6 +210,7 @@ export const Prompt: React.FC = () => {
               ></div>
             </div>
           )}   
+
 
             </div>
           </div>
