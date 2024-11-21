@@ -11,13 +11,16 @@ import {handleLogout } from '../../Redux/Slice/AuthSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
 // import { Translate } from '@mui/icons-material';
 
 
 const UserMenu: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const { user, loading, error, rememberMe } = useSelector((state: RootState) => state.auth);
+
 React.useEffect(
   () => {
   console.log(user);
@@ -26,10 +29,14 @@ React.useEffect(
 )
 
 
-const handleLogoutClick = () => {
+const handleLogoutClick = (event: React.MouseEvent<HTMLElement>) => {
+  event.preventDefault();
   console.log('logout');
   dispatch(handleLogout());
+  console.log('Navigating to home');
+  navigate('/login');
 };
+
 
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
