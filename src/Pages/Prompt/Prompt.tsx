@@ -81,12 +81,7 @@ export const Prompt: React.FC = () => {
     }
   }, [chat]);
 
-  useEffect(() => {
-    document.body.style.overflow = hasSearched ? "hidden" : "auto";
-    return () => {
-      document.body.style.overflow = "auto"; // Cleanup on unmount
-    };
-  }, [hasSearched]);
+
 
   return (
     <div className="bg-black text-center relative text-white">
