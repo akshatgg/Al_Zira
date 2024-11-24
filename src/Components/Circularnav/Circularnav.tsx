@@ -11,13 +11,19 @@ export const Circularnav: React.FC = () => {
     const [isExpanded, setIsExpanded] = useState(false);
    
 
-      const handleToggleExpand = () => {
-        setIsExpanded((prevState) => !prevState);
-      };
+    const handleMouseEnter = () => {
+      setIsExpanded(true);
+    };
+  
+    const handleMouseLeave = () => {
+      setIsExpanded(false);
+    };
   return (
     <div
     className="fixed top-2/4 left-10 w-10 h-10 -mt-20 cursor-pointer"
-    onClick={handleToggleExpand}
+    onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+
   >
     <img src={Ellipse} alt="Ellipse" className="w-full h-full" />
     <div
