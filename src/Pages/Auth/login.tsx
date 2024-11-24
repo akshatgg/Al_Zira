@@ -18,12 +18,19 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [rememberMeState, setRememberMeState] = useState(false);
+
   
+  const { uid: userId, name: userName, email: userEmail } = JSON.parse(localStorage.getItem("data") || "{}");
   useEffect(() => {
     if (user) { 
-      console.log('User data updated:', user.displayName, user.email);
       console.log(user);
     }
+
+    
+    
+    
+    
+    
   }, [user]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

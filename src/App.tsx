@@ -11,6 +11,7 @@ import EmailVerification from "./Pages/Auth/EmailVerification.tsx";
 import Loader from "./Components/Loader/Loader.tsx";
 // import { Loader } from './Components/Loader/Loader.tsx';
 
+
 function App() {
   return (
   

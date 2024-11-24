@@ -16,7 +16,7 @@ const dummyData = [
 ];
 
 export const Prompt: React.FC = () => {
-
+  
   const [input, setInput] = useState('');
   const [chat, setChat] = useState<{ question: string; answer: string }[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
@@ -26,6 +26,8 @@ export const Prompt: React.FC = () => {
   const [uploading, setUploading] = useState(false);
   const { user, loading, error, rememberMe } = useSelector((state: RootState) => state.auth);
 
+  const { uid: userId, name: userName, email: userEmail } = JSON.parse(localStorage.getItem("data") || "{}");
+  
 
   const handleFileChange = (event) => {
     
@@ -93,18 +95,23 @@ export const Prompt: React.FC = () => {
         {!hasSearched ? (
           <>
             <h2 className="lg:text-4xl md:text-3xl text-2xl font-sans bg-gradient-to-r from-blue-400 to-pink-400 inline-block bg-clip-text text-transparent">
-              Hello, {user?.name || "Guest"}
+              Hello, {user?.name || userName || 'User'}
             </h2>
             <p className="text-gray-400 lg:text-xl md:text-lg text-sm">What Can I Help With?</p>
 
             <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4 mt-4">
-              <input
-                type="text"
-                placeholder="Ask F.R.I.D.A.Y"
-                className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-transparent border border-gray-800"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
+            <input
+  type="text"
+  placeholder="Ask F.R.I.D.A.Y"
+  className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-black border border-gray-800"
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter') {
+      handleRequest();
+    }
+  }}
+/>
               <img
                 src={SendIcon}
                 alt="SendIcon"
