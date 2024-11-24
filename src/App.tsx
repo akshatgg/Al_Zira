@@ -8,6 +8,7 @@ import ForgotPassword from "./Pages/Auth/ForgotPassword.tsx";
 import { Navbar } from "./Pages/Navbar/Navbar.tsx";
 import { Prompt } from "./Pages/Prompt/Prompt.tsx";
 import EmailVerification from "./Pages/Auth/EmailVerification.tsx";
+import Loader from "./Components/Loader/Loader.tsx";
 // import { Loader } from './Components/Loader/Loader.tsx';
 
 function App() {
@@ -15,11 +16,11 @@ function App() {
   
       <div>
         <Router>
-          {/* <Routes> */}
-            {/* <Route path="/" element={<Navbar />} /> */}
+          <Routes>
+            <Route path="/" element={<Navbar />} />
             {/* <Route path="/loader" element={<Loader />} /> */}
-          {/* </Routes> */}
-          <Navbar />
+          </Routes>
+          {/* <Navbar /> */}
 
           <Routes>
             <Route path="/" element={<Prompt />} />

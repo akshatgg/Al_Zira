@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SendIcon from '../../assets/send-icon.svg';
 import Media from '../../assets/media.svg';
-
+import "./Prompt.css";
 import AnswerIcon from '../../assets/AnswerIcon.svg';
 import { useSelector } from 'react-redux';
 import { RootState } from '@reduxjs/toolkit/query';
@@ -28,6 +28,8 @@ export const Prompt: React.FC = () => {
 
 
   const handleFileChange = (event) => {
+    
+    
     const file = event.target.files[0];
     if (file) {
       setUploading(true);
@@ -79,8 +81,10 @@ export const Prompt: React.FC = () => {
     }
   }, [chat]);
 
+
+
   return (
-    <div className="bg-black text-center relative text-white  overflow-y-auto">
+    <div className="bg-black text-center relative text-white overflow-y-auto">
       {/* Plus icon with expanded menu */}
 
      <Circularnav/>
@@ -151,11 +155,11 @@ export const Prompt: React.FC = () => {
           <div className="flex flex-col w-full max-h-full max-w-xl mx-auto mt-0 p-0 space-y-4 bg-black" ref={chatContainerRef}>
             {chat.map((msg, index) => (
               <div key={index} className="flex flex-col">
-                <div className="text-white font-mono font-normal p-0 rounded-lg max-w-xs self-end ml-0 mr-0">
+                <div className="text-white font-mono font-normal p-0 rounded-lg max-w-xs self-end ml-0 mr-0 xl:translate-y-[-150px] lg:translate-y-[-10px] md:translate-y-[-60px]">
                   <p>{msg.question}</p>
                 </div>
                 {msg.answer && (
-                  <div className=" text-white font-mono font-normal p-3 rounded-lg max-w-xs self-start mt-0">
+                  <div className=" text-white font-mono font-normal p-3 rounded-lg max-w-xs self-start mt-0 xl:translate-y-[-150px] lg:translate-y-[-10px] md:translate-y-[-60px]">
                     <div className='flex'>
                       <img src={AnswerIcon} alt="AnswerIcon" className="w-6 h-6 mr-4" />
                       <p>{msg.answer}</p>
@@ -173,7 +177,7 @@ export const Prompt: React.FC = () => {
 
         {hasSearched && (
           <div className="fixed bottom-10 left-0 right-0 mx-auto w-full lg:max-w-3xl md:max-w-xl max-w-lg px-4">
-            <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4 mt-4">
+            <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4 mt-4 ">
               <input
                 type="text"
                 placeholder="Ask F.R.I.D.A.Y"
