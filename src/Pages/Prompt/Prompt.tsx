@@ -84,7 +84,7 @@ export const Prompt: React.FC = () => {
 
 
   return (
-    <div className="bg-black text-center relative text-white">
+    <div className="bg-black text-center relative text-white overflow-y-auto">
       {/* Plus icon with expanded menu */}
 
      <Circularnav/>
