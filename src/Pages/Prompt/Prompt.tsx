@@ -192,6 +192,11 @@ export const Prompt: React.FC = () => {
 
                 value={input} 
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleRequest();
+                  }
+                }}
               />
 
 
@@ -212,6 +217,11 @@ export const Prompt: React.FC = () => {
             type="file"
             onChange={handleFileChange}
             className="hidden"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleRequest();
+              }
+            }}
           />
           {uploading && (
             <div className="absolute inset-x-0 top-12 w-full bg-gray-700 rounded-lg overflow-hidden">
