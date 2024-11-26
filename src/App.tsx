@@ -19,8 +19,8 @@ function App() {
       <div>
         <Router>
           <Routes>
-            <Route path="/" element={<Navbar />} />
-            {/* <Route path="/loader" element={<Loader />} /> */}
+            <Route path="/home" element={<Navbar />} />
+            <Route path="/loader" element={<Loader />} />
           </Routes>
           {/* <Navbar /> */}
 
