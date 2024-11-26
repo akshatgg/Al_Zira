@@ -107,6 +107,7 @@ export const handleSocialLogin = createAsyncThunk(
         email: result.user.email || '',
         uid: result.user.uid||''
         
+        
       };
       console.log(user);
      
