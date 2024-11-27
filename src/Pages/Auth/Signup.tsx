@@ -54,7 +54,7 @@ const Signup: React.FC = () => {
     try {
       const userCredential = await dispatch(
         handleEmailSignup({
-          username: formData.username,
+          name: formData.username,
           email: formData.email,
           password: formData.password,
           rememberMe: rememberMeState
@@ -62,7 +62,7 @@ const Signup: React.FC = () => {
       );
 
       if (handleEmailSignup.fulfilled.match(userCredential)) {
-        navigate('/');
+        navigate('/verification');
       } else {
         console.error('Signup failed:', userCredential.payload);
       }
@@ -80,7 +80,7 @@ const Signup: React.FC = () => {
       
       
       if (handleSocialSignup.fulfilled.match(result)) {
-        navigate('/');
+        navigate('/verification');
       } else {
         console.error('Social signup failed:', result.payload);
       }
