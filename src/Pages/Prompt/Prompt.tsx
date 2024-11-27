@@ -6,6 +6,13 @@ import AnswerIcon from '../../assets/AnswerIcon.svg';
 import { useSelector } from 'react-redux';
 import { RootState } from '@reduxjs/toolkit/query';
 import { Circularnav } from '../../Components/Circularnav/Circularnav';
+import Copy from '../../assets/Copy.svg';
+import Like from '../../assets/Like.svg';
+import DisLike from '../../assets/DisLike.svg';
+import Liked from '../../assets/Liked.svg';
+import DisLiked from '../../assets/DisLiked.svg';
+import Volume from '../../assets/Volume.svg';
+import VolumeUp from '../../assets/VolumeUp.svg';
 
 // Dummy JSON data
 const dummyData = [
@@ -25,11 +32,15 @@ export const Prompt: React.FC = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
   const { user, loading, error, rememberMe } = useSelector((state: RootState) => state.auth);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [likeStates, setLikeStates] = useState<Record<number, boolean>>({});
+  const [dislikeStates, setDislikeStates] = useState<Record<number, boolean>>({});
+  const [volumeStates, setVolumeStates] = useState<Record<number, boolean>>({});
 
 
   const handleFileChange = (event) => {
-    
-    
+
+
     const file = event.target.files[0];
     if (file) {
       setUploading(true);
@@ -48,12 +59,6 @@ export const Prompt: React.FC = () => {
       }, 300); // Adjust interval duration for upload speed simulation
     }
   };
-
-
-
-
-
-
 
   const handleRequest = () => {
     if (input.trim() === '') return;
@@ -81,15 +86,36 @@ export const Prompt: React.FC = () => {
     }
   }, [chat]);
 
+  const handleCopy = (text: string, index: number) => {
+    navigator.clipboard.writeText(text);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000); // Reset after 2 seconds
+  };
+
+  const handleLike = (index: number) => {
+    setLikeStates((prev) => ({ ...prev, [index]: !prev[index] }));
+    setDislikeStates((prev) => ({ ...prev, [index]: false })); // Ensure Dislike is reset
+  };
+
+  const handleDislike = (index: number) => {
+    setDislikeStates((prev) => ({ ...prev, [index]: !prev[index] }));
+    setLikeStates((prev) => ({ ...prev, [index]: false })); // Ensure Like is reset
+  };
+
+  const toggleVolume = (index: number) => {
+    setVolumeStates((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
+
 
 
   return (
-    <div className="bg-black text-center relative text-white overflow-y-auto">
+    <div className="bg-black text-center relative text-white overflow-hidden">
       {/* Plus icon with expanded menu */}
+      <div className="absolute top-4 left-4 z-50">
+        <Circularnav />
+      </div>
 
-     <Circularnav/>
-
-      <div className="flex flex-col h-screen justify-center items-center pb-80 lg:pt-[10%] md:pt-[15%] pt-[20%]">
+      <div className="flex flex-col h-screen justify-center items-center pb-10">
         {!hasSearched ? (
           <>
             <h2 className="lg:text-4xl md:text-3xl text-2xl font-sans bg-gradient-to-r from-blue-400 to-pink-400 inline-block bg-clip-text text-transparent">
@@ -97,40 +123,49 @@ export const Prompt: React.FC = () => {
             </h2>
             <p className="text-gray-400 lg:text-xl md:text-lg text-sm">What Can I Help With?</p>
 
-            <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4 mt-4">
+            <div className="relative w-full lg:max-w-2xl md:max-w-md sm:max-w-sm max-w-xs mx-auto px-4 mt-4">
+              {/* Input field */}
               <input
                 type="text"
                 placeholder="Ask F.R.I.D.A.Y"
-                className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-transparent border border-gray-800"
+                className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-transparent border border-gray-800 lg:text-lg md:text-base text-sm"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
               />
+              {/* Send Icon */}
               <img
                 src={SendIcon}
                 alt="SendIcon"
                 className="absolute inset-y-1 right-5 p-0 w-8 h-8 cursor-pointer"
                 onClick={handleRequest}
               />
-             <label htmlFor="file-upload" className="absolute inset-y-3 left-5 p-0 w-4 h-5 cursor-pointer">
-             <img src={Media} alt="Media" className="absolute inset-y-0 left-2 p-0 w-4 h-5 cursor-pointer" />
+              {/* Media Icon */}
+              <label htmlFor="file-upload" className="absolute inset-y-3 left-5 p-0 w-4 h-5 cursor-pointer">
+                <img
+                  src={Media}
+                  alt="Media"
+                  className="absolute inset-y-0 left-2 p-0 w-4 h-5 cursor-pointer"
+                />
               </label>
               <input
-            id="file-upload"
-            type="file"
-            onChange={handleFileChange}
-            className="hidden"
-          />
-          {uploading && (
-            <div className="absolute inset-x-0 top-12 w-full bg-gray-700 rounded-lg overflow-hidden">
-              <div
-                style={{ width: `${uploadProgress}%` }}
-                className="bg-blue-500 h-1 transition-all duration-200"
-              ></div>
-            </div>
-          )}
+                id="file-upload"
+                type="file"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              {/* Upload Progress */}
+              {uploading && (
+                <div className="absolute inset-x-0 top-12 w-full bg-gray-700 rounded-lg overflow-hidden">
+                  <div
+                    style={{ width: `${uploadProgress}%` }}
+                    className="bg-blue-500 h-1 transition-all duration-200"
+                  ></div>
+                </div>
+              )}
             </div>
 
-            <div className="mt-5 pb-20 space-x-3 flex justify-center">
+            {/* Suggestion Buttons */}
+            <div className="mt-5 pb-20 space-x-3 flex flex-wrap justify-center">
               <button
                 className="text-white bg-transparent border border-orange-400 py-1 px-2 rounded-lg hover:bg-gray-700 text-sm"
                 onClick={() => setInput("Suggest a movie.")}
@@ -152,17 +187,54 @@ export const Prompt: React.FC = () => {
             </div>
           </>
         ) : (
-          <div className="flex flex-col w-full max-h-full max-w-xl mx-auto mt-0 p-0 space-y-4 bg-black" ref={chatContainerRef}>
+          <div
+            className="flex-1 overflow-y-auto max-h-[calc(80vh-120px)] flex-col w-full max-w-xl mx-auto mt-0 p-0 space-y-3 bg-black "
+            ref={chatContainerRef}
+          >
             {chat.map((msg, index) => (
               <div key={index} className="flex flex-col">
-                <div className="text-white font-mono font-normal p-0 rounded-lg max-w-xs self-end ml-0 mr-0 xl:translate-y-[-150px] lg:translate-y-[-10px] md:translate-y-[-60px]">
+                <div className="text-white font-mono font-normal p-0 rounded-lg max-w-xs self-end ml-0 mr-0">
                   <p>{msg.question}</p>
                 </div>
                 {msg.answer && (
-                  <div className=" text-white font-mono font-normal p-3 rounded-lg max-w-xs self-start mt-0 xl:translate-y-[-150px] lg:translate-y-[-10px] md:translate-y-[-60px]">
-                    <div className='flex'>
+                  <div className="text-white font-mono font-normal p-3 rounded-lg max-w-xs self-start mt-0">
+                    <div className="flex">
                       <img src={AnswerIcon} alt="AnswerIcon" className="w-6 h-6 mr-4" />
                       <p>{msg.answer}</p>
+                    </div>
+                    <div className='flex'>
+                      <button onClick={() => toggleVolume(index)} className=" mt-1.5 ml-10 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
+                        <img
+                          src={volumeStates[index] ? VolumeUp : Volume}
+                          alt="Volume"
+                          className="w-5 h-5 "
+                          style={{ filter: "invert(1)" }}
+                        />
+                      </button>
+                      <button
+                        className="mt-1.5 ml-2 flex items-center justify-center text-gray-300 hover:text-white text-sm hover:bg-gray-600 transition-colors duration-200 rounded-sm"
+                        onClick={() => handleCopy(msg.answer, index)}
+                        title="Copy to clipboard"
+                      >
+                        <img src={Copy} alt="Copy Answer" className='w-5 h-5' style={{ filter: "invert(1)" }} />
+                        {copiedIndex === index && <span className="ml-1 text-sm">Copied!</span>}
+                      </button>
+                      <button onClick={() => handleLike(index)} className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
+                        <img
+                          src={likeStates[index] ? Liked : Like}
+                          alt="Like"
+                          className="w-5 h-5"
+                          style={{ filter: "invert(1)" }}
+                        />
+                      </button>
+                      <button onClick={() => handleDislike(index)} className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
+                        <img
+                          src={dislikeStates[index] ? DisLiked : DisLike}
+                          alt="Dislike"
+                          className="w-5 h-5"
+                          style={{ filter: "invert(1)" }}
+                        />
+                      </button>
                     </div>
                   </div>
                 )}
@@ -171,55 +243,45 @@ export const Prompt: React.FC = () => {
           </div>
         )}
 
-
-
-  
-
+        {/* Sticky Input for Chat */}
         {hasSearched && (
-          <div className="fixed bottom-10 left-0 right-0 mx-auto w-full lg:max-w-3xl md:max-w-xl max-w-lg px-4">
-            <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4 mt-4 ">
+          <div className="fixed bottom-4 left-0 right-0 mx-auto w-full lg:max-w-3xl md:max-w-xl max-w-lg px-4">
+            <div className="relative w-full lg:max-w-3xl md:max-w-xl max-w-lg mx-auto px-4 mt-4">
               <input
                 type="text"
                 placeholder="Ask F.R.I.D.A.Y"
                 className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-black border border-gray-800"
-
-                value={input} 
+                value={input}
                 onChange={(e) => setInput(e.target.value)}
               />
-
-
               <img
                 src={SendIcon}
                 alt="SendIcon"
                 className="absolute inset-y-1 right-5 p-0 w-8 h-8 cursor-pointer"
                 onClick={handleRequest}
               />
-
-                
-                  
-            <label htmlFor="file-upload" className="absolute inset-y-3 left-5 p-0 w-4 h-5 cursor-pointer">
-              <img src={Media} alt="Media" className="absolute inset-y-0 left-2 p-0 w-4 h-5 cursor-pointer" />
-            </label>
-            <input
-            id="file-upload"
-            type="file"
-            onChange={handleFileChange}
-            className="hidden"
-          />
-          {uploading && (
-            <div className="absolute inset-x-0 top-12 w-full bg-gray-700 rounded-lg overflow-hidden">
-              <div
-                style={{ width: `${uploadProgress}%` }}
-                className="bg-blue-500 h-1 transition-all duration-200"
-              ></div>
+              <label htmlFor="file-upload" className="absolute inset-y-3 left-5 p-0 w-4 h-5 cursor-pointer">
+                <img
+                  src={Media}
+                  alt="Media"
+                  className="absolute inset-y-0 left-2 p-0 w-4 h-5 cursor-pointer"
+                />
+              </label>
+              <input id="file-upload" type="file" onChange={handleFileChange} className="hidden" />
+              {uploading && (
+                <div className="absolute inset-x-0 top-12 w-full bg-gray-700 rounded-lg overflow-hidden">
+                  <div
+                    style={{ width: `${uploadProgress}%` }}
+                    className="bg-blue-500 h-1 transition-all duration-200"
+                  ></div>
+                </div>
+              )}
             </div>
-          )}   
-
-
-            </div>
+            <p className='text-center text-slate-800 font-medium p-1'>F.R.I.D.A.Y. can make mistakes. Check important info.</p>
           </div>
         )}
       </div>
     </div>
+
   );
 };

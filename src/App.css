@@ -11,4 +11,12 @@
   background-color: transparent;
 }
 
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
 
