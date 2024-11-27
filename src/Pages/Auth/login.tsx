@@ -46,7 +46,7 @@ const Login: React.FC = () => {
       );
       
       if (handleEmailLogin.fulfilled.match(resultAction)) {
-        navigate('/'); // Redirect to home if login is successful
+        navigate('/home'); // Redirect to home if login is successful
       } else {
         console.error(resultAction.payload);  // Log any error message
       }
@@ -64,7 +64,7 @@ const Login: React.FC = () => {
       const resultAction = await dispatch(handleSocialLogin(provider));
       
       if (handleSocialLogin.fulfilled.match(resultAction)) {
-        navigate('/');
+        navigate('/home');
       } else {
         console.error('Error:', resultAction.payload);
       }
@@ -99,8 +99,8 @@ const Login: React.FC = () => {
       </div>
 
       <div className='flex-0 lg:pr-10 md:pr-5'>
-        <div className="text-white border border-white bg-transparent backdrop-filter backdrop-blur-md lg:p-10 md:p-6 rounded-2xl shadow-lg">
-          <h2 className="lg:text-3xl md:text-2xl font-sans font-semibold mb-1 mt-4">Login</h2>
+        <div className="text-white border border-white bg-transparent backdrop-filter backdrop-blur-md lg:p-10 md:p-6 sm:p-5 rounded-2xl shadow-lg">
+          <h2 className="lg:text-3xl md:text-2xl font-sans font-semibold mb-1 mt-4 ">Login</h2>
           <p className="mb-2 md:text-sm">Glad you're back.!</p>
 
           {error && (
