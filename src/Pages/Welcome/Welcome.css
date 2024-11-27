@@ -1,132 +1,23 @@
-/* Responsive Font Sizes */
-.pages h1 {
-    font-size: clamp(28px, 4vw, 46px); 
-    line-height: 1.2; 
-}
-
-.pages h2 {
-    font-size: clamp(18px, 2.5vw, 25px); 
-    line-height: 1.3;
-}
-
-.pages p {
-    font-size: clamp(14px, 2vw, 20px); 
-    line-height: 1.6;
-}
-
-
 /* General styles for pages */
 #page1, #page2, #page3 {
     background-repeat: no-repeat;
+    background-size: contain; 
 }
+/* Reusable CSS for Circular Background Images */
+.circular-bg {
+    width: 400px;
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
 
-/* Group 1 positioning */
-#group1 {
-    z-index: 2;
-    top: 48%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-}
-
-/* Group 2 positioning */
-#group2 {
-    z-index: 1;
-    bottom: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-}
-
-/* Group 3 positioning */
-#group3 {
-    z-index: 2;
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-}
-
-/* Styles for screens wider than 1024px */
-@media (min-width: 925px) {
-    #page1, #page2, #page3 {
-        margin-bottom: 1rem;
-        background-size: contain;
-    }
-
-    .pages {
-        padding: 0 5%;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .pages h1, .pages h2, .pages p {
-        text-align: center;
-    }
-
-    #group1, #group2, #group3 {
-        max-width: 300px;
-    }
-
-    #group1 {
-        top: 45%;
-    }
-    
-    #group2 {
-        bottom: 20%;
-    }
-    
-    #group3 {
-        top: 10%;
-    }
-}
-
-/* Styles for screens wider than 1200px */
-@media (min-width: 1200px) {
-    #page1, #page2, #page3 {
-        margin-bottom: 1.5rem;
-        background-size: contain;
-    }
-}
-
-/* Styles for screens narrower than 992px */
-@media (max-width: 992px) {
-    #page1, #page2, #page3 {
-        background-size: cover;
-    }
-}
-
-/* Styles for screens narrower than 768px */
-@media (max-width: 768px) {
-    
-    .pages > *:not(:first-child) {
-        padding: 0 20px;
-    }
-}
-
-/* Styles for screens narrower than 576px */
-@media (max-width: 576px) {
-    
-    #group1 {
-        top: 50%;
-    }
-}
-
-.fade-enter {
-    opacity: 0;
-    transform: scale(0.9);
-}
-.fade-enter-active {
-    opacity: 1;
-    transform: scale(1);
-    transition: opacity 500ms, transform 500ms;
-}
-.fade-exit {
-    opacity: 1;
-    transform: scale(1);
-}
-.fade-exit-active {
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 500ms, transform 500ms;
+/* General fixes */
+.pages {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
