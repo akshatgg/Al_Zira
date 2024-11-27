@@ -10,8 +10,13 @@
 ::-webkit-scrollbar-track {
   background-color: transparent;
 }
-body{
+
+html, body {
   background-color: black;
+  overflow: hidden;
+  height: 100%;
 }
 
-
+#root {
+  height: 100%;
+}
