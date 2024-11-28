@@ -75,7 +75,7 @@ export const Prompt: React.FC = () => {
 
     const newChat = response
       ? { question: input, answer: response.answer }
-      : { question: input, answer: "I'm not sure about that." };
+      : { question: input, answer: "I'm not sure about thata sffffffff eeeee wwwwwwww ssssssssss" };
 
     setChat((prevChat) => [...prevChat, newChat]);
     setInput('');
@@ -194,26 +194,28 @@ export const Prompt: React.FC = () => {
           </>
         ) : (
           <div
-            className="flex-1 overflow-y-auto max-h-[calc(90vh-100px)] translate-y-[-50px] flex-col w-full max-w-xl mx-auto mt-0 p-0 space-y-3 bg-black "
+            className="flex-1 overflow-y-auto max-h-[calc(90vh-100px)] translate-y-[-50px] flex-col w-full max-w-3xl mx-auto mt-0 p-0 space-y-3 bg-black "
             ref={chatContainerRef}
           >
             {chat.map((msg, index) => (
-              <div key={index} className="flex flex-col">
-                <div className="text-white font-mono font-normal p-0 rounded-lg max-w-xs self-end ml-0 mr-0 ">
+              <div key={index} className="flex flex-col ">
+                <div className="text-white font-mono font-normal p-3 bg-gray-900 rounded-3xl max-w-xs self-end ml-0 mr-0 ">
                   <p>{msg.question}</p>
                 </div>
                 {msg.answer && (
-                  <div className="text-white font-mono font-normal p-3 rounded-lg max-w-xs self-start mt-0 ">
+                  <div className="text-white font-mono font-normal  max-w-xs self-start mt-0 ">
                     <div className="flex">
-                      <img src={AnswerIcon} alt="AnswerIcon" className="w-6 h-6 mr-4" />
-                      <p>{msg.answer}</p>
+                      <img src={AnswerIcon} alt="AnswerIcon" className="w-5 h-5 mr-4" />
+                    <div className=" bg-gray-900 p-3 rounded-3xl max-w-xl">
+                      <p className='text-md'>{msg.answer}</p>
                     </div>
-                    <div className='flex'>
+                    </div>
+                    <div className='flex mt-1 '>
                       <button onClick={() => toggleVolume(index)} className=" mt-1.5 ml-10 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
                         <img
                           src={volumeStates[index] ? VolumeUp : Volume}
                           alt="Volume"
-                          className="w-5 h-5 "
+                          className="w-4 h-4 "
                           style={{ filter: "invert(1)" }}
                         />
                       </button>
@@ -222,14 +224,14 @@ export const Prompt: React.FC = () => {
                         onClick={() => handleCopy(msg.answer, index)}
                         title="Copy to clipboard"
                       >
-                        <img src={Copy} alt="Copy Answer" className='w-5 h-5' style={{ filter: "invert(1)" }} />
+                        <img src={Copy} alt="Copy Answer" className='w-4 h-4' style={{ filter: "invert(1)" }} />
                         {copiedIndex === index && <span className="ml-1 text-sm">Copied!</span>}
                       </button>
                       <button onClick={() => handleLike(index)} className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
                         <img
                           src={likeStates[index] ? Liked : Like}
                           alt="Like"
-                          className="w-5 h-5"
+                          className="w-4 h-4"
                           style={{ filter: "invert(1)" }}
                         />
                       </button>
@@ -237,7 +239,7 @@ export const Prompt: React.FC = () => {
                         <img
                           src={dislikeStates[index] ? DisLiked : DisLike}
                           alt="Dislike"
-                          className="w-5 h-5"
+                          className="w-4 h-4"
                           style={{ filter: "invert(1)" }}
                         />
                       </button>
