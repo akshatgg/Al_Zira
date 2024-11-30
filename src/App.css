@@ -12,10 +12,15 @@
 }
 
 html, body {
+
   background-color: black;
-  overflow: hidden;
-  height: 100%;
 }
+.scro{
+  height: 100%;
+  overflow: hidden;
+  
+}
+
 
 #root {
   height: 100%;

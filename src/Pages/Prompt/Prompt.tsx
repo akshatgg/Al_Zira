@@ -194,7 +194,8 @@ export const Prompt: React.FC = () => {
           </>
         ) : (
           <div
-            className="flex-1 overflow-y-auto max-h-[calc(88vh-100px)] translate-y-[-50px] flex-col w-full max-w-3xl mx-auto mt-0 p-0 space-y-3 bg-black "
+
+            className="flex-1 overflow-y-auto max-h-[calc(88vh-100px)] translate-y-[-50px] flex-col w-full lg:max-w-4xl md:max-w-2xl sm:max-w-xl xsm:max-w-lg xl:max-w-5xl mx-auto mt-0 p-0 space-y-3 bg-black "
             ref={chatContainerRef}
           >
             {chat.map((msg, index) => (
@@ -243,7 +244,9 @@ export const Prompt: React.FC = () => {
                           style={{ filter: "invert(1)" }}
                         />
                       </button>
+
                     </div>
+                    
                   </div>
                 )}
               </div>
@@ -290,7 +293,9 @@ export const Prompt: React.FC = () => {
                 </div>
               )}
             </div>
+
             <p className='text-center text-slate-700 font-medium '>F.R.I.D.A.Y. can make mistakes. Check important info.</p>
+
           </div>
         )}
       </div>
