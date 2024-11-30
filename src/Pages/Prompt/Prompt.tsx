@@ -195,7 +195,7 @@ export const Prompt: React.FC = () => {
         ) : (
           <div
 
-            className="flex-1 overflow-y-auto max-h-[calc(88vh-100px)] translate-y-[-50px] flex-col w-full max-w-3xl mx-auto mt-0 p-0 space-y-3 bg-black "
+            className="flex-1 overflow-y-auto max-h-[calc(88vh-100px)] translate-y-[-50px] flex-col w-full lg:max-w-4xl md:max-w-2xl sm:max-w-xl xsm:max-w-lg xl:max-w-5xl mx-auto mt-0 p-0 space-y-3 bg-black "
             ref={chatContainerRef}
           >
             {chat.map((msg, index) => (
@@ -246,40 +246,7 @@ export const Prompt: React.FC = () => {
                       </button>
 
                     </div>
-                    <div className='flex'>
-                      <button onClick={() => toggleVolume(index)} className=" mt-1.5 ml-10 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
-                        <img
-                          src={volumeStates[index] ? VolumeUp : Volume}
-                          alt="Volume"
-                          className="w-5 h-5 "
-                          style={{ filter: "invert(1)" }}
-                        />
-                      </button>
-                      <button
-                        className="mt-1.5 ml-2 flex items-center justify-center text-gray-300 hover:text-white text-sm hover:bg-gray-600 transition-colors duration-200 rounded-sm"
-                        onClick={() => handleCopy(msg.answer, index)}
-                        title="Copy to clipboard"
-                      >
-                        <img src={Copy} alt="Copy Answer" className='w-5 h-5' style={{ filter: "invert(1)" }} />
-                        {copiedIndex === index && <span className="ml-1 text-sm">Copied!</span>}
-                      </button>
-                      <button onClick={() => handleLike(index)} className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
-                        <img
-                          src={likeStates[index] ? Liked : Like}
-                          alt="Like"
-                          className="w-5 h-5"
-                          style={{ filter: "invert(1)" }}
-                        />
-                      </button>
-                      <button onClick={() => handleDislike(index)} className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
-                        <img
-                          src={dislikeStates[index] ? DisLiked : DisLike}
-                          alt="Dislike"
-                          className="w-5 h-5"
-                          style={{ filter: "invert(1)" }}
-                        />
-                      </button>
-                    </div>
+                    
                   </div>
                 )}
               </div>
