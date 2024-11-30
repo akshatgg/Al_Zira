@@ -13,6 +13,7 @@ import Liked from '../../assets/Liked.svg';
 import DisLiked from '../../assets/DisLiked.svg';
 import Volume from '../../assets/Volume.svg';
 import VolumeUp from '../../assets/VolumeUp.svg';
+import {  Navbar} from "../Navbar/Navbar.tsx";
 
 // Dummy JSON data
 const dummyData = [
@@ -110,13 +111,14 @@ export const Prompt: React.FC = () => {
 
 
   return (
-    <div className="bg-black text-center relative text-white overflow-hidden">
+    <div className="h-screen bg-black text-center relative text-white overflow-hidden">
+    <Navbar/>
       {/* Plus icon with expanded menu */}
       <div className="absolute top-4 left-4 z-50">
         <Circularnav />
       </div>
 
-      <div className="flex flex-col h-screen justify-center items-center pb-10">
+      <div className="flex flex-col justify-center items-center h-[80vh]">
         {!hasSearched ? (
           <>
             <h2 className="lg:text-4xl md:text-3xl text-2xl font-sans bg-gradient-to-r from-blue-400 to-pink-400 inline-block bg-clip-text text-transparent">
@@ -195,7 +197,7 @@ export const Prompt: React.FC = () => {
         ) : (
           <div
 
-            className="flex-1 overflow-y-auto max-h-[calc(88vh-100px)] translate-y-[-50px] flex-col w-full lg:max-w-4xl md:max-w-2xl sm:max-w-xl xsm:max-w-lg xl:max-w-5xl mx-auto mt-0 p-0 space-y-3 bg-black "
+            className="flex-1 overflow-y-auto max-h-[calc(80vh)]  flex-col w-full lg:max-w-4xl md:max-w-2xl sm:max-w-xl xsm:max-w-lg xl:max-w-5xl mx-auto mt-0 p-0 space-y-3 bg-black "
             ref={chatContainerRef}
           >
             {chat.map((msg, index) => (
