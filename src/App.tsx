@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css'
 
-
 import Login from "./Pages/Auth/login.tsx";
 import Signup from "./Pages/Auth/Signup.tsx";
 import ForgotPassword from "./Pages/Auth/ForgotPassword.tsx";
@@ -10,6 +9,8 @@ import { Prompt } from "./Pages/Prompt/Prompt.tsx";
 import EmailVerification from "./Pages/Auth/EmailVerification.tsx";
 import Loader from "./Components/Loader/Loader.tsx";
 import Welcome from "./Pages/Welcome/Welcome.tsx";
+import Visualizer from "./Components/Visualizer/Visualizer.tsx";
+import { AudioPrompt } from "./Pages/AudioPrompt/AudioPrompt.tsx";
 // import { Loader } from './Components/Loader/Loader.tsx';
 
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/" element={<Welcome />} />
             <Route path="/login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
+            <Route path="/Audio" element={<AudioPrompt/>} />
             <Route path="/Forgot_Password" element={<ForgotPassword />} />
             <Route path="/verification" element={<EmailVerification />} />
           </Routes>
