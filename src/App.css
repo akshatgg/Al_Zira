@@ -14,8 +14,11 @@
 html, body {
 
   background-color: black;
-  overflow: hidden;
+}
+.scro{
   height: 100%;
+  overflow: hidden;
+  
 }
 
 
