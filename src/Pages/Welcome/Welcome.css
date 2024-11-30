@@ -1,0 +1,23 @@
+/* General styles for pages */
+#page1, #page2, #page3 {
+    background-repeat: no-repeat;
+    background-size: contain; 
+}
+/* Reusable CSS for Circular Background Images */
+.circular-bg {
+    width: 400px;
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+
+/* General fixes */
+.pages {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

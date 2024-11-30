@@ -37,6 +37,7 @@ export const Prompt: React.FC = () => {
   const [dislikeStates, setDislikeStates] = useState<Record<number, boolean>>({});
   const [volumeStates, setVolumeStates] = useState<Record<number, boolean>>({});
 
+  const { uid: userId, name: userName, email: userEmail } = JSON.parse(localStorage.getItem("data") || "{}");
 
   const handleFileChange = (event) => {
 
@@ -74,7 +75,7 @@ export const Prompt: React.FC = () => {
 
     const newChat = response
       ? { question: input, answer: response.answer }
-      : { question: input, answer: "I'm not sure about that." };
+      : { question: input, answer: "I'm not sure about thata sffffffff eeeee wwwwwwww ssssssssss" };
 
     setChat((prevChat) => [...prevChat, newChat]);
     setInput('');
@@ -119,7 +120,7 @@ export const Prompt: React.FC = () => {
         {!hasSearched ? (
           <>
             <h2 className="lg:text-4xl md:text-3xl text-2xl font-sans bg-gradient-to-r from-blue-400 to-pink-400 inline-block bg-clip-text text-transparent">
-              Hello, {user?.name || "Guest"}
+              Hello, {user?.name || userName}
             </h2>
             <p className="text-gray-400 lg:text-xl md:text-lg text-sm">What Can I Help With?</p>
 
@@ -131,6 +132,11 @@ export const Prompt: React.FC = () => {
                 className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-transparent border border-gray-800 lg:text-lg md:text-base text-sm"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleRequest();
+                  }
+                }}
               />
               {/* Send Icon */}
               <img
@@ -188,19 +194,57 @@ export const Prompt: React.FC = () => {
           </>
         ) : (
           <div
-            className="flex-1 overflow-y-auto max-h-[calc(80vh-120px)] flex-col w-full max-w-xl mx-auto mt-0 p-0 space-y-3 bg-black "
+
+            className="flex-1 overflow-y-auto max-h-[calc(88vh-100px)] translate-y-[-50px] flex-col w-full max-w-3xl mx-auto mt-0 p-0 space-y-3 bg-black "
             ref={chatContainerRef}
           >
             {chat.map((msg, index) => (
-              <div key={index} className="flex flex-col">
-                <div className="text-white font-mono font-normal p-0 rounded-lg max-w-xs self-end ml-0 mr-0">
+              <div key={index} className="flex flex-col ">
+                <div className="text-white font-mono font-normal p-3 bg-gray-900 rounded-3xl max-w-xs self-end ml-0 mr-0 ">
                   <p>{msg.question}</p>
                 </div>
                 {msg.answer && (
-                  <div className="text-white font-mono font-normal p-3 rounded-lg max-w-xs self-start mt-0">
+                  <div className="text-white font-mono font-normal  max-w-xs self-start mt-0 ">
                     <div className="flex">
-                      <img src={AnswerIcon} alt="AnswerIcon" className="w-6 h-6 mr-4" />
-                      <p>{msg.answer}</p>
+                      <img src={AnswerIcon} alt="AnswerIcon" className="w-5 h-5 mr-4" />
+                    <div className=" bg-gray-900 p-3 rounded-3xl max-w-xl">
+                      <p className='text-md'>{msg.answer}</p>
+                    </div>
+                    </div>
+                    <div className='flex mt-1 '>
+                      <button onClick={() => toggleVolume(index)} className=" mt-1.5 ml-10 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
+                        <img
+                          src={volumeStates[index] ? VolumeUp : Volume}
+                          alt="Volume"
+                          className="w-4 h-4 "
+                          style={{ filter: "invert(1)" }}
+                        />
+                      </button>
+                      <button
+                        className="mt-1.5 ml-2 flex items-center justify-center text-gray-300 hover:text-white text-sm hover:bg-gray-600 transition-colors duration-200 rounded-sm"
+                        onClick={() => handleCopy(msg.answer, index)}
+                        title="Copy to clipboard"
+                      >
+                        <img src={Copy} alt="Copy Answer" className='w-4 h-4' style={{ filter: "invert(1)" }} />
+                        {copiedIndex === index && <span className="ml-1 text-sm">Copied!</span>}
+                      </button>
+                      <button onClick={() => handleLike(index)} className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
+                        <img
+                          src={likeStates[index] ? Liked : Like}
+                          alt="Like"
+                          className="w-4 h-4"
+                          style={{ filter: "invert(1)" }}
+                        />
+                      </button>
+                      <button onClick={() => handleDislike(index)} className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
+                        <img
+                          src={dislikeStates[index] ? DisLiked : DisLike}
+                          alt="Dislike"
+                          className="w-4 h-4"
+                          style={{ filter: "invert(1)" }}
+                        />
+                      </button>
+
                     </div>
                     <div className='flex'>
                       <button onClick={() => toggleVolume(index)} className=" mt-1.5 ml-10 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
@@ -253,6 +297,11 @@ export const Prompt: React.FC = () => {
                 className="w-full p-2 pr-12 pl-10 rounded-lg text-white placeholder-slate-800 text-center focus:outline-none bg-black border border-gray-800"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleRequest();
+                  }
+                }}
               />
               <img
                 src={SendIcon}
@@ -277,7 +326,9 @@ export const Prompt: React.FC = () => {
                 </div>
               )}
             </div>
-            <p className='text-center text-slate-800 font-medium p-1'>F.R.I.D.A.Y. can make mistakes. Check important info.</p>
+
+            <p className='text-center text-slate-700 font-medium '>F.R.I.D.A.Y. can make mistakes. Check important info.</p>
+
           </div>
         )}
       </div>
