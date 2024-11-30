@@ -12,10 +12,12 @@
 }
 
 html, body {
+
   background-color: black;
   overflow: hidden;
   height: 100%;
 }
+
 
 #root {
   height: 100%;
