@@ -62,25 +62,35 @@ export const AudioPrompt: React.FC = () => {
       </div>
 
       {/* Bottom buttons container */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-14 items-center -translate-y-9">
+      <div className="absolute bottom-4  left-1/2 transform -translate-x-1/2 flex gap-14 items-center -translate-y-9">
         {/* First icon - smaller */}
-        <div className="icon w-10 h-10 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
-          <img src={Keyboard} alt="Keyboard" className="icon-image w-6 h-6 hover:brightness-150" />
+        <div   className="icon w-8 h-8 bg-[#1C2E54] rounded-full flex items-center justify-center 
+  hover:shadow-[0px_4px_15px_rgba(255,255,255,0.3)] hover:scale-110 transition-all duration-300 ease-in-out" >
+          <img src={Keyboard} alt="Keyboard" className="icon-image w-5 h-5 hover:brightness-150" />
         </div>
 
         {/* Middle icon - Microphone with toggle functionality */}
         <div
-          className={`icon w-14 h-14 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 ${listening ? 'bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]' : ''
-            } hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]`}
-          onClick={handleToggleListening}
-        >
-          <img src={Mic} alt="Microphone" className="icon-image w-6 h-6 hover:brightness-150" />
-        </div>
+  className={`icon w-14 h-14 rounded-full border-2 border-gray-500 flex items-center justify-center 
+    hover:scale-110 hover:border-white hover:border-4 
+    bg-gradient-to-r from-[#9459B4] to-[#9487D7] 
+    ${listening ? 'shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] scale-110 border-white border-4' : ''}
+    ${!listening ? 'hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]' : ''}`}
+  onClick={handleToggleListening}
+>
+  <img src={Mic} alt="Microphone" className="icon-image w-6 h-6 hover:brightness-150" />
+</div>
+
 
         {/* Third icon - smaller (Cross to restart) */}
-        <div className="icon w-10 h-10 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]" onClick={handleRestart}>
-          <img src={cross} alt="Cross" className="icon-image w-6 h-6 hover:brightness-150" />
-        </div>
+        <div
+  className="icon w-8 h-8 bg-[#1C2E54] rounded-full flex items-center justify-center 
+  hover:shadow-[0px_4px_15px_rgba(255,255,255,0.3)] hover:scale-110 transition-all duration-300 ease-in-out" 
+  onClick={handleRestart}
+>
+  <img src={cross} alt="Cross" className="icon-image w-5 h-5 hover:brightness-150" />
+</div>
+
       </div>
     </div>
   );

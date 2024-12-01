@@ -97,17 +97,18 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(({
 
   return (
     <div>
-      <h2>Real-Time Speech-to-Text</h2>
+      
       <div
-        className="bg-transparent text-white p-2 font-[Ponnala]"
-        style={{
-          minHeight: "100px",
-          fontSize: "20px",
-          overflowY: "auto",
-        }}
-      >
-        {transcript}
-      </div>
+  className="bg-transparent text-white p-2 font-[Ponnala] text-center"
+  style={{
+    width: "300px",
+    fontSize: "25px",
+    overflowY: "auto",
+  
+  }}
+>
+  {transcript || "Start speaking to see the text here..."}
+</div>
       <div>
         <button
           onClick={() => (isListening ? recognition.stop() : recognition.start())}
