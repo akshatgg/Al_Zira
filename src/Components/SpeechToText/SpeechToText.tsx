@@ -99,9 +99,10 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(({
     <div>
       
       <div
-  className="bg-transparent text-white p-2 font-[Ponnala] text-center"
+  className="bg-transparent text-white p-2 font-[Ponnala] text-center overflow-y-auto "
   style={{
     width: "300px",
+    height:"200px",
     fontSize: "25px",
     overflowY: "auto",
   

@@ -122,7 +122,7 @@ export const Prompt: React.FC = () => {
         {!hasSearched ? (
           <>
             <h2 className="lg:text-4xl md:text-3xl text-2xl font-sans bg-gradient-to-r from-blue-400 to-pink-400 inline-block bg-clip-text text-transparent">
-              Hello, {user?.name || userName}
+              Hello, {user?.name || userName || 'User'}
             </h2>
             <p className="text-gray-400 lg:text-xl md:text-lg text-sm">What Can I Help With?</p>
 
@@ -202,14 +202,14 @@ export const Prompt: React.FC = () => {
           >
             {chat.map((msg, index) => (
               <div key={index} className="flex flex-col ">
-                <div className="text-white font-mono font-normal p-3 bg-gray-900 rounded-3xl max-w-xs self-end ml-0 mr-0 ">
+                <div className="text-white font-mono font-normal p-3 bg-[#011426] rounded-3xl max-w-xs self-end ml-0 mr-0 ">
                   <p>{msg.question}</p>
                 </div>
                 {msg.answer && (
                   <div className="text-white font-mono font-normal  max-w-xs self-start mt-0 ">
                     <div className="flex">
                       <img src={AnswerIcon} alt="AnswerIcon" className="w-5 h-5 mr-4" />
-                    <div className=" bg-gray-900 p-3 rounded-3xl max-w-xl">
+                    <div className=" bg-[#011426] p-3 rounded-3xl max-w-xl">
                       <p className='text-md'>{msg.answer}</p>
                     </div>
                     </div>
