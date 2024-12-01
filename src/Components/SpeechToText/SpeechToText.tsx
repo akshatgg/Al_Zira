@@ -99,14 +99,8 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(({
     <div>
       
       <div
-  className="bg-transparent text-white p-2 font-[Ponnala] text-center overflow-y-auto "
-  style={{
-    width: "300px",
-    height:"200px",
-    fontSize: "25px",
-    overflowY: "auto",
-  
-  }}
+  className="bg-transparent text-white p-2 font-[Ponnala] text-center text-[25px] overflow-y-auto xl:w-[300px] xl:h-[200px] xl:text-[25px] lg:w-[250px] lg:h-[150px] lg:text-xl md:w-[250px] md:h-[150px] md:text-xl sm:w-[250px] sm:h-[160px] sm:text-xl"
+ 
 >
   {transcript || "Start speaking to see the text here..."}
 </div>
