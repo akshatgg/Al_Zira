@@ -1,99 +1,102 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface VisualizerProps {
-  color?: string; // Color of the waveform
-  width?: number; // Width of the canvas
-  height?: number; // Height of the canvas
-  barWidth?: number; // Line width of the waveform
+  height?: number; // Maximum height of the bars
+  width?: number; // Overall width of the animation
+  color?: string; // Color of the bars
+  gap?: number; // Space between the bars
+  numberOfBars?: number; // Number of bars to display
+  barWidth?: number; // Width of each bar
 }
 
 const Visualizer: React.FC<VisualizerProps> = ({
-  color = "lime",
-  width = window.innerWidth,
-  height = window.innerHeight,
-  barWidth = 2,
+  height = 150,
+  width = 300,
+  color = "#FF5385",
+
+  gap = 8, // Default gap between bars
+  numberOfBars = 16, // Default number of bars
+  barWidth = 10, // Default width of each bar
 }) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [bars, setBars] = useState<number[]>([]);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const dataArrayRef = useRef<Uint8Array | null>(null);
 
   useEffect(() => {
-    let animationFrameId: number;
-    let analyser: AnalyserNode;
-    let dataArray: Uint8Array;
+    // Set up the audio context and analyser node
+    const setupAudio = async () => {
+      try {
+        // Get microphone access
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audioContext = new AudioContext();
+        audioContextRef.current = audioContext;
 
-    const setupAudioContext = async () => {
-      // Access the user's microphone
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      audioContextRef.current = audioContext;
+        const source = audioContext.createMediaStreamSource(stream);
+        const analyser = audioContext.createAnalyser();
 
-      // Create an audio source and analyser node
-      const source = audioContext.createMediaStreamSource(stream);
-      analyser = audioContext.createAnalyser();
-      analyser.fftSize = 2048; // Higher value for smoother waveforms
-      const bufferLength = analyser.frequencyBinCount;
-      dataArray = new Uint8Array(bufferLength);
+        // Adjust fftSize based on the desired number of bars
+        const fftSize = Math.pow(2, Math.ceil(Math.log2(numberOfBars * 2))); // Nearest power of 2
+        analyser.fftSize = fftSize;
+        analyserRef.current = analyser;
 
-      source.connect(analyser);
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        dataArrayRef.current = dataArray;
 
-      // Start visualizing
-      const canvas = canvasRef.current!;
-      const ctx = canvas.getContext("2d")!;
-      const draw = () => {
-        animationFrameId = requestAnimationFrame(draw);
-
-        analyser.getByteTimeDomainData(dataArray);
-
-        // Clear canvas
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Draw waveform
-        ctx.lineWidth = barWidth;
-        ctx.strokeStyle = color;
-        ctx.beginPath();
-
-        const sliceWidth = canvas.width / bufferLength;
-        let x = 0;
-
-        for (let i = 0; i < bufferLength; i++) {
-          const v = dataArray[i] / 128.0;
-          const y = (v * canvas.height) / 2;
-
-          if (i === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            ctx.lineTo(x, y);
-          }
-
-          x += sliceWidth;
-        }
-
-        ctx.lineTo(canvas.width, canvas.height / 2);
-        ctx.stroke();
-      };
-
-      draw();
-    };
-
-    setupAudioContext().catch(console.error);
-
-    return () => {
-      // Clean up resources
-      cancelAnimationFrame(animationFrameId);
-      if (audioContextRef.current) {
-        audioContextRef.current.close();
+        source.connect(analyser);
+      } catch (err) {
+        console.error("Error accessing microphone:", err);
       }
     };
-  }, [color, barWidth]); // Add dependencies
+
+    setupAudio();
+
+    return () => {
+      // Clean up audio context when the component is unmounted
+      audioContextRef.current?.close();
+    };
+  }, [numberOfBars]);
+
+  useEffect(() => {
+    const updateBars = () => {
+      if (analyserRef.current && dataArrayRef.current) {
+        analyserRef.current.getByteFrequencyData(dataArrayRef.current);
+        setBars([...dataArrayRef.current]);
+      }
+    };
+
+    const interval = setInterval(updateBars, 50); // Update every 50ms
+    return () => clearInterval(interval);
+  }, []);
+
+  const containerWidth = (numberOfBars * barWidth) + ((numberOfBars - 1) * gap); // Calculate container width
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={width}
-      height={height}
-      style={{ display: "block", background: "black" }}
-    />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: `${Math.min(containerWidth, width)}px`, // Constrain to the specified width
+        height: `${height}px`,
+        overflow: "hidden", // Ensure it fits within the container
+      }}
+    >
+      {bars.slice(0, numberOfBars).map((barHeight, index) => (
+        <div
+          key={index}
+          style={{
+            width: `${barWidth}px`, // Use the barWidth prop
+            height: `${(barHeight / 255) * height}px`, // Normalize bar height
+            backgroundColor: color,
+            borderRadius: `${barWidth / 2}px`, // Make corners fully rounded (half of barWidth)
+            transition: "height 0.05s ease",
+            marginRight: `${index === numberOfBars - 1 ? 0 : gap}px`, // Use gap prop for spacing
+          }}
+        ></div>
+      ))}
+    </div>
   );
 };
 
