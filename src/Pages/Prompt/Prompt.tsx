@@ -197,7 +197,7 @@ export const Prompt: React.FC = () => {
         ) : (
           <div
 
-            className="flex-1 overflow-y-auto max-h-[calc(80vh)]  flex-col w-full lg:max-w-4xl md:max-w-2xl sm:max-w-xl xsm:max-w-lg xl:max-w-5xl mx-auto mt-0 p-0 space-y-3 bg-black "
+            className="flex-1 overflow-y-auto max-h-[calc(80vh)]  flex-col w-full lg:max-w-xl md:max-w-lg sm:max-w-lg xsm:max-w-lg xl:max-w-5xl mx-auto mt-0 p-0 space-y-3 bg-black "
             ref={chatContainerRef}
           >
             {chat.map((msg, index) => (
