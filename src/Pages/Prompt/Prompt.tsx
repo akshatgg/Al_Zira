@@ -204,6 +204,7 @@ export const Prompt: React.FC = () => {
               <div key={index} className="flex flex-col ">
                 <div className="text-white font-mono font-normal p-3 bg-[#011426] rounded-3xl max-w-xs self-end ml-0 mr-0 ">
                   <p>{msg.question}</p>
+                  
                 </div>
                 {msg.answer && (
                   <div className="text-white font-mono font-normal  max-w-xs self-start mt-0 ">
