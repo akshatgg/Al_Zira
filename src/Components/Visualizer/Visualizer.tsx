@@ -7,28 +7,41 @@ interface VisualizerProps {
   gap?: number; // Space between the bars
   numberOfBars?: number; // Number of bars to display
   barWidth?: number; // Width of each bar
+  isListening?: boolean; // Whether the microphone is on
 }
 
 const Visualizer: React.FC<VisualizerProps> = ({
   height = 150,
   width = 300,
   color = "#FF5385",
-
-  gap = 8, // Default gap between bars
-  numberOfBars = 16, // Default number of bars
-  barWidth = 10, // Default width of each bar
+  gap = 8,
+  numberOfBars = 16,
+  barWidth = 10,
+  isListening = true, // Default to true if not provided
 }) => {
-  const [bars, setBars] = useState<number[]>([]);
+  const [bars, setBars] = useState<number[]>(new Array(numberOfBars).fill(0)); // Initialize bars to zeros
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
-    // Set up the audio context and analyser node
+    // Set up the audio context and analyser node only if isListening is true
     const setupAudio = async () => {
+      if (!isListening) {
+        // If not listening, stop and clean up the microphone access
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((track) => track.stop());
+          streamRef.current = null;
+        }
+        return;
+      }
+
       try {
         // Get microphone access
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        streamRef.current = stream;
+
         const audioContext = new AudioContext();
         audioContextRef.current = audioContext;
 
@@ -53,10 +66,14 @@ const Visualizer: React.FC<VisualizerProps> = ({
     setupAudio();
 
     return () => {
-      // Clean up audio context when the component is unmounted
+      // Clean up audio context and microphone access when the component is unmounted or isListening changes
       audioContextRef.current?.close();
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
     };
-  }, [numberOfBars]);
+  }, [isListening, numberOfBars]);
 
   useEffect(() => {
     const updateBars = () => {
@@ -87,10 +104,14 @@ const Visualizer: React.FC<VisualizerProps> = ({
         <div
           key={index}
           style={{
-            width: `${barWidth}px`, // Use the barWidth prop
-            height: `${(barHeight / 255) * height}px`, // Normalize bar height
+            width: `${barWidth}px`,
+            height: isListening
+              ? `${(barHeight / 255) * height}px` // Normalized bar height
+              : `${barWidth}px`, // Dot height when not listening
             backgroundColor: color,
-            borderRadius: `${barWidth / 2}px`, // Make corners fully rounded (half of barWidth)
+            borderRadius: isListening
+              ? `${barWidth / 2}px` // Round corners for bars
+              : "50%", // Make it a circle when not listening
             transition: "height 0.05s ease",
             marginRight: `${index === numberOfBars - 1 ? 0 : gap}px`, // Use gap prop for spacing
           }}

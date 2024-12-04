@@ -1,118 +1,92 @@
-import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 
 interface SpeechToTextProps {
   language?: string;
   onResult?: (text: string) => void;
-  startListening?: boolean; // Prop to start listening
-  stopListening?: boolean; // Prop to stop listening
-  restartListening?: boolean; // Prop to restart listening
+  startListening?: boolean;
 }
 
-const SpeechToText = forwardRef<any, SpeechToTextProps>(({ 
-  language = "en-US", 
-  onResult, 
-  startListening, 
-  stopListening, 
-  restartListening 
-}, ref) => {
-  const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState<string>("");
+const SpeechToText = forwardRef<any, SpeechToTextProps>(
+  ({ language = "en-US", onResult, startListening }, ref) => {
+    const [transcript, setTranscript] = useState<string>("");
 
-  const SpeechRecognition =
-    window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || (window as any).webkitSpeechRecognition;
 
-  const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+    const recognition = SpeechRecognition ? new SpeechRecognition() : null;
 
-  useEffect(() => {
-    if (!recognition) {
-      console.error("Speech Recognition is not supported in this browser.");
-      alert("Speech Recognition is not supported in this browser.");
-      return;
-    }
-
-    recognition.lang = language;
-    recognition.interimResults = true;
-    recognition.continuous = true;
-
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
-      const results = Array.from(event.results)
-        .map((result) => result[0].transcript)
-        .join("");
-      setTranscript(results);
-
-      if (onResult) {
-        onResult(results);
+    useEffect(() => {
+      if (!recognition) {
+        console.error("Speech Recognition is not supported in this browser.");
+        alert("Speech Recognition is not supported in this browser.");
+        return;
       }
-    };
 
-    recognition.onerror = (event) => {
-      console.error("Speech Recognition Error:", event.error);
-    };
+      recognition.lang = language;
+      recognition.interimResults = true;
+      recognition.continuous = true;
 
-    // Cleanup when component unmounts
-    return () => {
-      recognition.stop();
-    };
-  }, [recognition, language, onResult]);
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
+        const results = Array.from(event.results)
+          .map((result) => result[0].transcript)
+          .join("");
+        setTranscript(results);
 
-  useEffect(() => {
-    if (startListening && !isListening) {
-      recognition.start();
-      setIsListening(true);
-    }
-  }, [startListening, isListening, recognition]);
+        if (onResult) {
+          onResult(results);
+        }
+      };
 
-  useEffect(() => {
-    if (stopListening && isListening) {
-      recognition.stop();
-      setIsListening(false);
-    }
-  }, [stopListening, isListening, recognition]);
+      recognition.onerror = (event) => {
+        console.error("Speech Recognition Error:", event.error);
+      };
 
-  useEffect(() => {
-    if (restartListening) {
-      recognition.stop();
-      setTranscript(""); // Clear current transcript
-      recognition.start();
-      setIsListening(true);
-    }
-  }, [restartListening, recognition]);
+      recognition.onend = () => {
+        console.log("Speech recognition stopped.");
+      };
 
-  useImperativeHandle(ref, () => ({
-    startRecognition: () => {
-      recognition.start();
-      setIsListening(true);
-    },
-    stopRecognition: () => {
-      recognition.stop();
-      setIsListening(false);
-    },
-    restartRecognition: () => {
-      recognition.stop();
-      setTranscript("");
-      recognition.start();
-      setIsListening(true);
-    },
-  }));
+      return () => {
+        recognition.stop(); // Cleanup only when component unmounts
+      };
+    }, [recognition, language, onResult]);
 
-  return (
-    <div>
-      
-      <div
-  className="bg-transparent text-white p-2 font-[Ponnala] text-center text-[25px] overflow-y-auto xl:w-[300px] xl:h-[200px] xl:text-[25px] lg:w-[250px] lg:h-[150px] lg:text-xl md:w-[250px] md:h-[150px] md:text-xl sm:w-[250px] sm:h-[160px] sm:text-xl"
- 
->
-  {transcript || "Start speaking to see the text here..."}
-</div>
+    useEffect(() => {
+      if (!recognition) return;
+
+      if (startListening) {
+        recognition.start();
+      } else {
+        recognition.stop();
+      }
+    }, [startListening, recognition]);
+
+    useImperativeHandle(ref, () => ({
+      startRecognition: () => {
+        if (recognition) {
+          recognition.start();
+        }
+      },
+      stopRecognition: () => {
+        if (recognition) {
+          recognition.stop();
+        }
+      },
+    }));
+
+    return (
       <div>
-        <button
-          onClick={() => (isListening ? recognition.stop() : recognition.start())}
-        >
-          {isListening ? "Stop Listening" : "Start Listening"}
-        </button>
+        <div className="bg-transparent text-white p-2 font-[Ponnala] text-center text-[25px] overflow-y-auto xl:w-[300px] xl:h-[200px] xl:text-[25px] lg:w-[250px] lg:h-[150px] lg:text-xl md:w-[250px] md:h-[150px] md:text-xl sm:w-[250px] sm:h-[160px] sm:text-xl">
+          {transcript || "Start speaking to see the text here..."}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
+SpeechToText.displayName = "SpeechToText";
 export default SpeechToText;

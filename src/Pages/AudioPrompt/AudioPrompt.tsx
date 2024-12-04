@@ -48,14 +48,13 @@ export const AudioPrompt: React.FC = () => {
             gap={20}
             numberOfBars={9}
             barWidth={7}
+            isListening={listening}
           />
         </div>
         <div>
           <SpeechToText
             ref={speechRef}
             startListening={listening}
-            stopListening={!listening}
-            restartListening={restartListening}
             onResult={(text) => handleResult(text)}
           />
         </div>
