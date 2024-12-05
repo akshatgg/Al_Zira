@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/store';
-import { handleEmailLogin, handleSocialLogin } from '../../redux/Slice/AuthSlice';
+import { AppDispatch, RootState } from '../../Redux/store';
+import { handleEmailLogin, handleSocialLogin } from '../../Redux/Slice/AuthSlice';
 import backgroundImage from '@/assets/Login_Bg.svg';
 import Logo from '@/assets/Logo.svg';
 import Google from '@/assets/Google.svg';

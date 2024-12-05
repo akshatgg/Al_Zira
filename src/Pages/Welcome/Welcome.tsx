@@ -11,7 +11,7 @@ import Group3 from '../../assets/Group 3.svg';
 import Eclipse3 from '../../assets/Ellipse 3.svg';
 import Background1 from '../../assets/Home_1_Ellipse_2.svg';
 import Background2 from '../../assets/Ellipse_2.svg';
-import './welcome.css';
+import './Welcome.css';
 
 const Welcome: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
