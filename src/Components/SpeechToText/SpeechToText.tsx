@@ -13,8 +13,10 @@ interface SpeechToTextProps {
 
 const SpeechToText = forwardRef<any, SpeechToTextProps>(
   ({ language = "en-US", onResult, startListening }, ref) => {
+
     const [transcript, setTranscript] = useState<string>(""); // Complete transcript
     const [interimTranscript, setInterimTranscript] = useState<string>(""); // Interim (live) transcript
+
 
     const SpeechRecognition =
       window.SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -33,6 +35,7 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(
       recognition.continuous = true;
 
       recognition.onresult = (event: SpeechRecognitionEvent) => {
+
         let finalText = "";
         let interimText = "";
 
@@ -50,6 +53,7 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(
 
         if (onResult && finalText) {
           onResult(finalText); // Callback with final text
+
         }
       };
 
@@ -58,17 +62,20 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(
       };
 
       recognition.onend = () => {
+
         console.log("Speech recognition stopped.");
         setInterimTranscript(""); // Clear interim transcript on stop
       };
 
       return () => {
         recognition.stop(); // Cleanup when component unmounts
+
       };
     }, [recognition, language, onResult]);
 
     useEffect(() => {
       if (!recognition) return;
+
 
       if (startListening) {
         recognition.start();
@@ -86,6 +93,7 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(
       stopRecognition: () => {
         if (recognition) {
           recognition.stop();
+
         }
       },
     }));
@@ -93,8 +101,10 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(
     return (
       <div>
         <div className="bg-transparent text-white p-2 font-[Ponnala] text-center text-[25px] overflow-y-auto xl:w-[300px] xl:h-[200px] xl:text-[25px] lg:w-[250px] lg:h-[150px] lg:text-xl md:w-[250px] md:h-[150px] md:text-xl sm:w-[250px] sm:h-[160px] sm:text-xl">
+
           {/* Display interim text (live) followed by the accumulated transcript */}
           {interimTranscript || transcript || "Start speaking to see the text here..."}
+
         </div>
       </div>
     );
