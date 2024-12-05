@@ -197,61 +197,76 @@ export const Prompt: React.FC = () => {
         ) : (
           <div
 
-            className="flex-1 overflow-y-auto max-h-[calc(80vh)]  flex-col w-full lg:max-w-xl md:max-w-lg sm:max-w-lg xsm:max-w-lg xl:max-w-5xl mx-auto mt-0 p-0 space-y-3 bg-black "
+            className="flex-1 overflow-y-auto max-h-[calc(80vh)]  flex-col w-full lg:max-w-xl md:max-w-lg sm:max-w-lg xsm:max-w-lg xl:max-w-5xl mx-auto mt-0 p-0 space-y-3 bg-black"
             ref={chatContainerRef}
           >
             {chat.map((msg, index) => (
               <div key={index} className="flex flex-col ">
-                <div className="text-white font-mono font-normal p-3 bg-[#011426] rounded-3xl max-w-xs self-end ml-0 mr-0 ">
+                <div className="text-white font-mono font-normal p-3 bg-[#011426] rounded-3xl max-w-xs self-end ml-0 mr-0 text-left">
                   <p>{msg.question}</p>
                   
                 </div>
                 {msg.answer && (
-                  <div className="text-white font-mono font-normal  max-w-xs self-start mt-0 ">
-                    <div className="flex">
-                      <img src={AnswerIcon} alt="AnswerIcon" className="w-5 h-5 mr-4" />
-                    <div className=" bg-[#011426] p-3 rounded-3xl max-w-xl">
-                      <p className='text-md'>{msg.answer}</p>
-                    </div>
-                    </div>
-                    <div className='flex mt-1 '>
-                      <button onClick={() => toggleVolume(index)} className=" mt-1.5 ml-10 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
-                        <img
-                          src={volumeStates[index] ? VolumeUp : Volume}
-                          alt="Volume"
-                          className="w-4 h-4 "
-                          style={{ filter: "invert(1)" }}
-                        />
-                      </button>
-                      <button
-                        className="mt-1.5 ml-2 flex items-center justify-center text-gray-300 hover:text-white text-sm hover:bg-gray-600 transition-colors duration-200 rounded-sm"
-                        onClick={() => handleCopy(msg.answer, index)}
-                        title="Copy to clipboard"
-                      >
-                        <img src={Copy} alt="Copy Answer" className='w-4 h-4' style={{ filter: "invert(1)" }} />
-                        {copiedIndex === index && <span className="ml-1 text-sm">Copied!</span>}
-                      </button>
-                      <button onClick={() => handleLike(index)} className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
-                        <img
-                          src={likeStates[index] ? Liked : Like}
-                          alt="Like"
-                          className="w-4 h-4"
-                          style={{ filter: "invert(1)" }}
-                        />
-                      </button>
-                      <button onClick={() => handleDislike(index)} className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm">
-                        <img
-                          src={dislikeStates[index] ? DisLiked : DisLike}
-                          alt="Dislike"
-                          className="w-4 h-4"
-                          style={{ filter: "invert(1)" }}
-                        />
-                      </button>
+  <div className="text-white font-mono font-normal max-w-xs self-start mt-0">
+    <div className="flex">
+      <img src={AnswerIcon} alt="AnswerIcon" className="w-5 h-5 mr-4" />
+      <div className="bg-[#011426] p-3 rounded-3xl max-w-xl flex items-start justify-start text-left">
+        <p className="text-md">{msg.answer}</p>
+      </div>
+    </div>
+    <div className="flex mt-1">
+      <button
+        onClick={() => toggleVolume(index)}
+        className="mt-1.5 ml-10 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm"
+      >
+        <img
+          src={volumeStates[index] ? VolumeUp : Volume}
+          alt="Volume"
+          className="w-4 h-4"
+          style={{ filter: "invert(1)" }}
+        />
+      </button>
+      <button
+        className="mt-1.5 ml-2 flex items-center justify-center text-gray-300 hover:text-white text-sm hover:bg-gray-600 transition-colors duration-200 rounded-sm"
+        onClick={() => handleCopy(msg.answer, index)}
+        title="Copy to clipboard"
+      >
+        <img
+          src={Copy}
+          alt="Copy Answer"
+          className="w-4 h-4"
+          style={{ filter: "invert(1)" }}
+        />
+        {copiedIndex === index && (
+          <span className="ml-1 text-sm">Copied!</span>
+        )}
+      </button>
+      <button
+        onClick={() => handleLike(index)}
+        className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm"
+      >
+        <img
+          src={likeStates[index] ? Liked : Like}
+          alt="Like"
+          className="w-4 h-4"
+          style={{ filter: "invert(1)" }}
+        />
+      </button>
+      <button
+        onClick={() => handleDislike(index)}
+        className="mt-1.5 ml-2 cursor-pointer hover:bg-gray-600 transition-colors duration-200 rounded-sm"
+      >
+        <img
+          src={dislikeStates[index] ? DisLiked : DisLike}
+          alt="Dislike"
+          className="w-4 h-4"
+          style={{ filter: "invert(1)" }}
+        />
+      </button>
+    </div>
+  </div>
+)}
 
-                    </div>
-                    
-                  </div>
-                )}
               </div>
             ))}
           </div>
