@@ -13,7 +13,8 @@ interface SpeechToTextProps {
 
 const SpeechToText = forwardRef<any, SpeechToTextProps>(
   ({ language = "en-US", onResult, startListening }, ref) => {
-    const [transcript, setTranscript] = useState<string>("");
+    const [transcript, setTranscript] = useState<string>(""); // Complete transcript
+    const [interimTranscript, setInterimTranscript] = useState<string>(""); // Interim (live) transcript
 
     const SpeechRecognition =
       window.SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -32,13 +33,23 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(
       recognition.continuous = true;
 
       recognition.onresult = (event: SpeechRecognitionEvent) => {
-        const results = Array.from(event.results)
-          .map((result) => result[0].transcript)
-          .join("");
-        setTranscript(results);
+        let finalText = "";
+        let interimText = "";
 
-        if (onResult) {
-          onResult(results);
+        for (let i = 0; i < event.results.length; i++) {
+          const result = event.results[i];
+          if (result.isFinal) {
+            finalText += result[0].transcript;
+          } else {
+            interimText += result[0].transcript;
+          }
+        }
+
+        setTranscript((prev) => prev + finalText); // Append the final text to the previous transcript
+        setInterimTranscript(interimText); // Update interim text for live display
+
+        if (onResult && finalText) {
+          onResult(finalText); // Callback with final text
         }
       };
 
@@ -48,10 +59,11 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(
 
       recognition.onend = () => {
         console.log("Speech recognition stopped.");
+        setInterimTranscript(""); // Clear interim transcript on stop
       };
 
       return () => {
-        recognition.stop(); // Cleanup only when component unmounts
+        recognition.stop(); // Cleanup when component unmounts
       };
     }, [recognition, language, onResult]);
 
@@ -81,7 +93,8 @@ const SpeechToText = forwardRef<any, SpeechToTextProps>(
     return (
       <div>
         <div className="bg-transparent text-white p-2 font-[Ponnala] text-center text-[25px] overflow-y-auto xl:w-[300px] xl:h-[200px] xl:text-[25px] lg:w-[250px] lg:h-[150px] lg:text-xl md:w-[250px] md:h-[150px] md:text-xl sm:w-[250px] sm:h-[160px] sm:text-xl">
-          {transcript || "Start speaking to see the text here..."}
+          {/* Display interim text (live) followed by the accumulated transcript */}
+          {interimTranscript || transcript || "Start speaking to see the text here..."}
         </div>
       </div>
     );
