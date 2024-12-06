@@ -4,6 +4,7 @@ import arrow_down from "../../assets/arrow_drop.svg";
 import setting from "../../assets/settings.svg";
 import shopping from "../../assets/Shopping_bag.svg";
 import UserMenu from "../../Components/UserMenu/UserMenu.tsx";
+import { Circularnav } from '../../Components/Circularnav/Circularnav.tsx';
 
 export const Navbar: React.FC = () => {
   
@@ -20,6 +21,9 @@ export const Navbar: React.FC = () => {
         <div className="hidden sm:block">
           <img src={arrow_down} alt="arrow_down" className="w-5 h-auto md:w-7 lg:w-9" />
         </div>
+      </div>
+      <div className="hidden sm:block">
+        <Circularnav />
       </div>
       <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8">
         <div>
