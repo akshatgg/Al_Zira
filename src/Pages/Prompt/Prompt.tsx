@@ -202,7 +202,7 @@ export const Prompt: React.FC = () => {
           >
             {chat.map((msg, index) => (
               <div key={index} className="flex flex-col ">
-                <div className="text-white font-mono font-normal p-3 bg-[#011426] rounded-3xl max-w-xs self-end ml-0 mr-0 text-left">
+                <div className="text-white font-mono font-normal p-3 bg-[#0A0705] rounded-3xl max-w-xs self-end ml-0 mr-0 text-left">
                   <p>{msg.question}</p>
                   
                 </div>
@@ -210,7 +210,7 @@ export const Prompt: React.FC = () => {
   <div className="text-white font-mono font-normal max-w-xs self-start mt-0">
     <div className="flex">
       <img src={AnswerIcon} alt="AnswerIcon" className="w-5 h-5 mr-4" />
-      <div className="bg-[#011426] p-3 rounded-3xl max-w-xl flex items-start justify-start text-left">
+      <div className="bg-[#0A0705] p-3 rounded-3xl max-w-xl flex items-start justify-start text-left">
         <p className="text-md">{msg.answer}</p>
       </div>
     </div>
