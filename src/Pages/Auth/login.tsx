@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../Redux/store';
 import { handleEmailLogin, handleSocialLogin } from '../../Redux/Slice/AuthSlice';
-import backgroundImage from '@/assets/Login_Bg.svg';
-import Logo from '@/assets/Logo.svg';
-import Google from '@/assets/Google.svg';
-import Github from '@/assets/Github.svg';
-import Facebook from '@/assets/Facebook.svg';
+import backgroundImage from '../../assets/Login_Bg.svg';
+import Logo from '../../assets/Logo.svg';
+import Google from '../../assets/Google.svg';
+import Github from '../../assets/Github.svg';
+import Facebook from '../../assets/Facebook.svg';
 import { GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider } from 'firebase/auth';
 
 const Login: React.FC = () => {

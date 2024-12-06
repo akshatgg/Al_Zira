@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import backgroundImage from '@/assets/Signup_Bg.svg';
-import Logo from "@/assets/Logo.svg";
-import Google from "@/assets/Google.svg";
-import Github from "@/assets/Github.svg";
-import Facebook from "@/assets/Facebook.svg";
+import backgroundImage from '../../assets/Signup_Bg.svg';
+import Logo from "../../assets/Logo.svg";
+import Google from "../../assets/Google.svg";
+import Github from "../../assets/Github.svg";
+import Facebook from "../../assets/Facebook.svg";
 import { useNavigate } from 'react-router-dom';
 import firebaseConfig from '../../firebaseConfig';
 import { initializeApp } from 'firebase/app';
