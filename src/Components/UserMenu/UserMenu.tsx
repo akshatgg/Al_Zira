@@ -27,6 +27,7 @@ React.useEffect(
   
   }
 )
+const { uid: userId, name: userName, email: userEmail } = JSON.parse(localStorage.getItem("data") || "{}");
 
 
 const handleLogoutClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -107,7 +108,8 @@ const handleLogoutClick = (event: React.MouseEvent<HTMLElement>) => {
               WebkitTextFillColor: 'transparent'
             }}
           >
-             {user?.name ? user.name.split(' ')[0] : "Guest"}
+             {user?.name?.split(' ')[0] || userName?.split(' ')[0] || "User"}
+
 
           </Typography>
           <Avatar 

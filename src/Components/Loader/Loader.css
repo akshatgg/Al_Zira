@@ -1,4 +1,4 @@
-body {
+.loader-wrapper {
     background-color: black;
     margin: 0;
     height: 100vh;
@@ -77,4 +77,14 @@ body {
 .content.show {
     opacity: 1;
     transform: translateX(-50px) translateY(50%);
+}
+
+
+
+
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(50px) scale(0.5); /* Moves the elements down and scales them */
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }

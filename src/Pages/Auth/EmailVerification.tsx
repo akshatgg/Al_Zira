@@ -44,7 +44,7 @@ const EmailVerification: React.FC = () => {
           await user.reload();
           if (user.emailVerified) {
             clearInterval(intervalId); // Stop checking if verified
-            navigate('/'); // Redirect to home page
+            navigate('/home'); // Redirect to home page
           }
         }, 5000);
 
