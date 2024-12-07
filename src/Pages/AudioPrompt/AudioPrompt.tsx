@@ -5,8 +5,7 @@ import SpeechToText from "../../Components/SpeechToText/SpeechToText.tsx";
 import Mic from "../../assets/Mic.svg";
 import Keyboard from "../../assets/Keyboard.svg";
 import cross from "../../assets/cross.svg";
-import { Circularnav } from '../../Components/Circularnav/Circularnav'; //for checking
-
+import {Link} from 'react-router-dom';
 export const AudioPrompt: React.FC = () => {
   const [listening, setListening] = useState(false);
 
@@ -31,10 +30,6 @@ export const AudioPrompt: React.FC = () => {
   return (
     <div className="h-screen overflow-hidden relative">
       <Navbar />
-
-      <div className="absolute top-4 left-4 z-50"> //for checking
-        <Circularnav />
-      </div>
 
       <div className="flex flex-col justify-center items-center xl:gap-y-11 lg:gap-y-11 md:gap-y-7 sm:gap-y-6">
         <div className="text-white font-[Ponnala] text-xl">
@@ -64,12 +59,14 @@ export const AudioPrompt: React.FC = () => {
 
       {/* Bottom buttons container */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-14 items-center -translate-y-9">
+        <Link to="/home">
         <div
           className="icon w-8 h-8 bg-[#1C2E54] rounded-full flex items-center justify-center 
           hover:shadow-[0px_4px_15px_rgba(255,255,255,0.3)] hover:scale-110 transition-all duration-300 ease-in-out"
         >
           <img src={Keyboard} alt="Keyboard" className="icon-image w-5 h-5 hover:brightness-150" />
         </div>
+        </Link>
 
         <div
           className={`icon w-14 h-14 rounded-full border-2 border-gray-500 flex items-center justify-center 

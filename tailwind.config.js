@@ -11,6 +11,9 @@ export default {
         'custom-login': '',
         'custom-signup': ''
       },
+      fontFamily: {
+        firaCode: ['"Fira Code"', 'monospace'],
+      },
       screens: {
         xsm: '480px', // Define the width you want for the xsm breakpoint
       },

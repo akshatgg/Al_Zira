@@ -114,9 +114,7 @@ export const Prompt: React.FC = () => {
     <div className="h-screen bg-black text-center relative text-white overflow-hidden">
     <Navbar/>
       {/* Plus icon with expanded menu */}
-      <div className="absolute top-4 left-4 z-50">
-        <Circularnav />
-      </div>
+
 
       <div className="flex flex-col justify-center items-center h-[80vh]">
         {!hasSearched ? (
@@ -192,7 +190,10 @@ export const Prompt: React.FC = () => {
               >
                 Play a song.
               </button>
+              
             </div>
+            <p className='absolute bottom-1 text-center text-slate-700 font-medium '>F.R.I.D.A.Y. can make mistakes. Check important info.</p>
+
           </>
         ) : (
           <div
@@ -202,15 +203,14 @@ export const Prompt: React.FC = () => {
           >
             {chat.map((msg, index) => (
               <div key={index} className="flex flex-col ">
-                <div className="text-white font-mono font-normal p-3 bg-[#011426] rounded-3xl max-w-xs self-end ml-0 mr-0 text-left">
-                  <p>{msg.question}</p>
+<div className="text-white font-normal font-firaCode p-3 bg-[#0A0705] rounded-3xl max-w-xs self-end ml-0 mr-0 text-left">                  <p>{msg.question}</p>
                   
                 </div>
                 {msg.answer && (
   <div className="text-white font-mono font-normal max-w-xs self-start mt-0">
     <div className="flex">
       <img src={AnswerIcon} alt="AnswerIcon" className="w-5 h-5 mr-4" />
-      <div className="bg-[#011426] p-3 rounded-3xl max-w-xl flex items-start justify-start text-left">
+      <div className="bg-[#0A0705] font-firaCode p-3 rounded-3xl max-w-xl flex items-start justify-start text-left">
         <p className="text-md">{msg.answer}</p>
       </div>
     </div>
