@@ -5,6 +5,7 @@ import SpeechToText from "../../Components/SpeechToText/SpeechToText.tsx";
 import Mic from "../../assets/Mic.svg";
 import Keyboard from "../../assets/Keyboard.svg";
 import cross from "../../assets/cross.svg";
+import { Circularnav } from '../../Components/Circularnav/Circularnav'; //for checking
 
 export const AudioPrompt: React.FC = () => {
   const [listening, setListening] = useState(false);
@@ -30,6 +31,10 @@ export const AudioPrompt: React.FC = () => {
   return (
     <div className="h-screen overflow-hidden relative">
       <Navbar />
+
+      <div className="absolute top-4 left-4 z-50"> //for checking
+        <Circularnav />
+      </div>
 
       <div className="flex flex-col justify-center items-center xl:gap-y-11 lg:gap-y-11 md:gap-y-7 sm:gap-y-6">
         <div className="text-white font-[Ponnala] text-xl">
