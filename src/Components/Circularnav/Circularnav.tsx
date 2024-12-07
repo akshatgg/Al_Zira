@@ -59,11 +59,12 @@ export const Circularnav: React.FC = () => {
   };
 
   const handleButtonClick = (buttonId: string, path: string) => {
-    setActiveIcon(buttonId); 
-    setIsExpanded(true); 
+    setActiveIcon(buttonId); // Set active icon
+    setIsExpanded(true); // Expand the navigation
     setTimeout(() => {
+      // After the transition, navigate to the path
       navigate(path);
-    }, 1000); 
+    }, 500); // Adjust the timeout duration as per your transition time
   };
 
   const getClockwiseRotation = (current: number, target: number): number => {
