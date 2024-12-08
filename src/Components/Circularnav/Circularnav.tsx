@@ -16,27 +16,34 @@ type ButtonData = {
   translate: number;
 };
 
+const calculateTranslate = (base: number) => {
+  const width = window.innerWidth;
+  if (width < 640) return base * 0.6;
+  if (width < 768) return base * 0.8;
+  return base;
+};
+
 const buttonsData: ButtonData[] = [
   {
     id: "avatar",
     path: "/avatar",
     icon: Avatar,
-    rotation: -25,
-    translate: 90,
+    rotation: -35,
+    translate: calculateTranslate(90),
   },
   {
     id: "prompt",
     path: "/home",
     icon: Keyboard,
     rotation: -90,
-    translate: 200,
+    translate: calculateTranslate(200),
   },
   {
     id: "audio",
     path: "/Audio",
     icon: Mic,
     rotation: 90,
-    translate: 135,
+    translate: calculateTranslate(135),
   },
 ];
 
@@ -45,6 +52,7 @@ export const Circularnav: React.FC = () => {
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const [dynamicButtons, setDynamicButtons] = useState(buttonsData);
 
   useEffect(() => {
     const activeButton = buttonsData.find(
@@ -80,6 +88,19 @@ export const Circularnav: React.FC = () => {
       "--inner-icon-rotation": `${-positions[relativeIndex].rotation}deg`,
     } as React.CSSProperties;
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const updatedButtons = buttonsData.map((button) => ({
+        ...button,
+        translate: calculateTranslate(button.translate),
+      }));
+      setDynamicButtons(updatedButtons);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  
   
   return (
     <div
