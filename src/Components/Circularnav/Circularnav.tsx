@@ -64,7 +64,7 @@ export const Circularnav: React.FC = () => {
     setTimeout(() => {
       // After the transition, navigate to the path
       navigate(path);
-    }, 500); // Adjust the timeout duration as per your transition time
+    }, 1000); // Adjust the timeout duration as per your transition time
   };
 
   const getClockwiseRotation = (current: number, target: number): number => {
