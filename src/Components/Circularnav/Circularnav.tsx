@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import "./Circularnav.css";
+// import "./Circularnav.css"; // Rajendra Changes
 import Plus from "../../assets/Plus.svg";
 import Ellipse from "../../assets/Ellipse.svg";
 import Mic from "../../assets/Mic.svg";
@@ -17,7 +17,7 @@ type ButtonData = {
   translate: number;
 };
 
-const calculateTranslate = (base: number) => {
+const calculateTranslate = (base: number) => { //Rajendra Changes
   const width = window.innerWidth;
   if (width < 640) return base * 0.6;
   if (width < 768) return base * 0.8;
@@ -29,31 +29,31 @@ const buttonsData: ButtonData[] = [
     id: "avatar",
     path: "/avatar",
     icon: Avatar,
-    rotation: -35,
-    translate: calculateTranslate(90),
+    rotation: -25, //Rajendra Changes -35 to -25
+    translate: calculateTranslate(90), //Rajendra Changes
   },
   {
     id: "prompt",
     path: "/home",
     icon: Keyboard,
     rotation: -90,
-    translate: calculateTranslate(200),
+    translate: calculateTranslate(200), //Rajendra CHanges
   },
   {
     id: "audio",
     path: "/Audio",
     icon: Mic,
     rotation: 90,
-    translate: calculateTranslate(135),
+    translate: calculateTranslate(135), //Rajendra CHanges
   },
 ];
 
 export const Circularnav: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const [dynamicButtons, setDynamicButtons] = useState(buttonsData);
+  const [dynamicButtons, setDynamicButtons] = useState(buttonsData); //Rajendra Changes
 
   useEffect(() => {
     const activeButton = buttonsData.find(
@@ -62,9 +62,9 @@ export const Circularnav: React.FC = () => {
     setActiveIcon(activeButton?.id || null);
   }, [location.pathname]);
 
-  const handleToggleExpand = () => {
-    setIsExpanded((prev) => !prev);
-  };
+  // const handleToggleExpand = () => { //Rajendra Changes
+  //   setIsExpanded((prev) => !prev);
+  // };
 
   const handleButtonClick = (buttonId: string, path: string) => {
     setActiveIcon(buttonId); // Set active icon
@@ -72,7 +72,7 @@ export const Circularnav: React.FC = () => {
     setTimeout(() => {
       // After the transition, navigate to the path
       navigate(path);
-    }, 500); // Adjust the timeout duration as per your transition time
+    }, 2000); // Adjust the timeout duration as per your transition time Rajendra Changes
   };
 
   const getClockwiseRotation = (current: number, target: number): number => {
@@ -107,7 +107,7 @@ export const Circularnav: React.FC = () => {
   
     return {
       transform: `rotate(${finalRotation % 360}deg) translate(${buttonsData[relativeIndex].translate}px)`,
-      transition: "transform 0.5s ease-in-out",
+      transition: "transform 1.5s ease-in-out", //Rajendra Changes
       "--inner-icon-rotation": `${-finalRotation % 360}deg`,
     } as React.CSSProperties;
   };
@@ -118,7 +118,7 @@ export const Circularnav: React.FC = () => {
         ...button,
         translate: calculateTranslate(button.translate),
       }));
-      setDynamicButtons(updatedButtons);
+      setDynamicButtons(updatedButtons); //Rajendra Changes
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -128,8 +128,8 @@ export const Circularnav: React.FC = () => {
   return (
     <div
       className="fixed top-2/4 left-10 w-10 h-10 -mt-20 cursor-pointer"
-      onMouseEnter={handleToggleExpand}
-      onMouseLeave={() => !isExpanded && setIsExpanded(false)}
+      // onMouseEnter={handleToggleExpand}
+      // onMouseLeave={() => !isExpanded && setIsExpanded(false)} //Rajendra Changes to prevent default open nav
     >
       <img src={Ellipse} alt="Ellipse" className="w-full h-full" />
       <div
