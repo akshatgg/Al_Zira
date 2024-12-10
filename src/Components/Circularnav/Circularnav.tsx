@@ -49,7 +49,7 @@ const buttonsData: ButtonData[] = [
 ];
 
 export const Circularnav: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -62,9 +62,9 @@ export const Circularnav: React.FC = () => {
     setActiveIcon(activeButton?.id || null);
   }, [location.pathname]);
 
-  // const handleToggleExpand = () => { //Rajendra Changes
-  //   setIsExpanded((prev) => !prev);
-  // };
+  const handleToggleExpand = () => { //Rajendra Changes
+    setIsExpanded((prev) => !prev);
+  };
 
   const handleButtonClick = (buttonId: string, path: string) => {
     setActiveIcon(buttonId); // Set active icon
@@ -72,7 +72,7 @@ export const Circularnav: React.FC = () => {
     setTimeout(() => {
       // After the transition, navigate to the path
       navigate(path);
-    }, 2000); // Adjust the timeout duration as per your transition time Rajendra Changes
+    }, 1500); // Adjust the timeout duration as per your transition time Rajendra Changes
   };
 
   const getClockwiseRotation = (current: number, target: number): number => {
@@ -107,7 +107,7 @@ export const Circularnav: React.FC = () => {
   
     return {
       transform: `rotate(${finalRotation % 360}deg) translate(${buttonsData[relativeIndex].translate}px)`,
-      transition: "transform 1.5s ease-in-out", //Rajendra Changes
+      transition: "transform 1.0s ease-in-out", //Rajendra Changes
       "--inner-icon-rotation": `${-finalRotation % 360}deg`,
     } as React.CSSProperties;
   };
@@ -128,8 +128,8 @@ export const Circularnav: React.FC = () => {
   return (
     <div
       className="fixed top-2/4 left-10 w-10 h-10 -mt-20 cursor-pointer"
-      // onMouseEnter={handleToggleExpand}
-      // onMouseLeave={() => !isExpanded && setIsExpanded(false)} //Rajendra Changes to prevent default open nav
+      onMouseEnter={handleToggleExpand}
+      onMouseLeave={() => !isExpanded && setIsExpanded(false)} //Rajendra Changes to prevent default open nav
     >
       <img src={Ellipse} alt="Ellipse" className="w-full h-full" />
       <div
