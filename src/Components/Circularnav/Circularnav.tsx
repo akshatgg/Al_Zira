@@ -81,6 +81,8 @@ export const Circularnav: React.FC = () => {
       {isExpanded && (
         <div className="expanded-items">
           <span className="semicircle  bg-gradient-to-b from-[#8BDEDA] to-[#EF9393]   "></span>
+          <span className="semicircle-left    "></span>
+
 
         <div className="semicircle-container  " style={{ transform: `rotate(${rotation}deg)` }}>
         {
@@ -90,7 +92,7 @@ export const Circularnav: React.FC = () => {
         className={`icon ${currentIndex === index ? "active" : "icon  bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] "}`}
         onClick={() => handleRotate(index)}
         style={{
-          transform: `rotate(${-index * 120}deg) translateX(${index === currentIndex ? 50 : 200}px) rotate(${index * 120}deg)`,
+          transform: `rotate(${-index * 120}deg) translateX(${index === currentIndex ? 90 : 210}px) rotate(${index * 120}deg)`,
           boxShadow: currentIndex === index ? "0 0 15px 10px rgba(255,0,255,0.5), 0 0 25px 15px rgba(0,255,255,0.3)" : "",
           border: currentIndex === index ? "4px solid white" : "",
           borderRadius: "50%",
@@ -100,6 +102,7 @@ export const Circularnav: React.FC = () => {
           className="icon-image-wrapper"
           style={{
             padding: "10px",
+            transition: "transform 0.5s",
             transform: `rotate(${-rotation}deg)` // Counter the parent rotation to keep the icon upright
             }}
         >
