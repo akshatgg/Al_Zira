@@ -56,7 +56,7 @@
     }
     .semicircle-left{
       margin-top: -5.5rem;
-      margin-left: -25rem;
+      margin-left: -24rem;
       transform: scaleX(-1);
       position: absolute;
       left: 0;
