@@ -11,15 +11,15 @@ type Icon = {
   id: number;
   label: string;
   image: string;
-  path : string;
-
+  path: string;
 };
 
 const icons: Icon[] = [
-  { id: 1, label: "Avatar", path: '/avatar' ,image: Avatar },
-  { id: 2, label: "Keyboard", path: '/home' ,image: Keyboard },
-  { id: 3, label: "Mic", path: '/Audio', image: Mic },
+  { id: 1, label: "Avatar", path: "/avatar", image: Avatar },
+  { id: 2, label: "Keyboard", path: "/home", image: Keyboard },
+  { id: 3, label: "Mic", path: "/audio", image: Mic },
 ];
+
 export const Circularnav: React.FC = () => {
   const [rotation, setRotation] = useState(0); // Tracks the current rotation
   const [currentIndex, setCurrentIndex] = useState(0); // Tracks the currently active icon
@@ -33,7 +33,6 @@ export const Circularnav: React.FC = () => {
       const activeIndex = activeButton.id - 1;
       setCurrentIndex(activeIndex);
       setRotation(activeIndex * 120); // Ensure the rotation matches the active icon
-
     }
   }, [location.pathname]);
 
@@ -59,65 +58,58 @@ export const Circularnav: React.FC = () => {
     setCurrentIndex(clickedIndex); // Update the active index
     setIsExpanded(true); // Expand the navigation
     setTimeout(() => {
-      navigate(icons[clickedIndex].path); // Navigate to the path
-    }, 500); // Adjust the timeout duration as per your transition time
+      // navigate(icons[clickedIndex].path); // Navigate to the path
+    }, 1500); // Adjust the timeout duration as per your transition time
   };
 
   return (
     <div
-      className="fixed top-2/4 left-10 w-10 h-10 -mt-20 cursor-pointer"
+      className="fixed  left-10 w-10 h-10  cursor-pointer"
       onMouseEnter={handleToggleExpand}
       onMouseLeave={() => !isExpanded && setIsExpanded(false)}
-      
     >
       <img src={Ellipse} alt="Ellipse" className="w-full h-full" />
       <div
-        className={`absolute inset-0 m-auto transition-transform duration-300 ${
-          isExpanded ? "rotate-45" : ""
-        }`}
+        className={`absolute inset-0 m-auto transition-transform duration-300 ${isExpanded ? "rotate-45" : ""}`}
       >
         <img src={Plus} alt="Plus" className="p-1.5" />
       </div>
+      <div className="semicircle"></div>
       {isExpanded && (
         <div className="expanded-items">
-          <span className="semicircle  bg-gradient-to-b from-[#8BDEDA] to-[#EF9393]   "></span>
-          <span className="semicircle-left    "></span>
-
-
-        <div className="semicircle-container  " style={{ transform: `rotate(${rotation}deg)` }}>
-        {
-    icons.map((icon, index) => (
-      <div
-        key={icon.id}
-        className={`icon ${currentIndex === index ? "active" : "icon  bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] "}`}
-        onClick={() => handleRotate(index)}
-        style={{
-          transform: `rotate(${-index * 120}deg) translateX(${index === currentIndex ? 90 : 210}px) rotate(${index * 120}deg)`,
-          boxShadow: currentIndex === index ? "0 0 15px 10px rgba(255,0,255,0.5), 0 0 25px 15px rgba(0,255,255,0.3)" : "",
-          border: currentIndex === index ? "4px solid white" : "",
-          borderRadius: "50%",
-        }}
-      >
-        <div
-          className="icon-image-wrapper"
-          style={{
-            padding: "10px",
-            transition: "transform 0.5s",
-            transform: `rotate(${-rotation}deg)` // Counter the parent rotation to keep the icon upright
-            }}
-        >
-          <img src={icon.image} alt={icon.label} />
-              
+          <div className="circle" style={{ transform: `rotate(${rotation}deg)` }}>
+            {icons.map((icon, index) => (
+              <div
+                key={icon.id}
+                className={`icon ${currentIndex === index ? "active" : "icon  bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] "}`}
+                onClick={() => handleRotate(index)}
+                style={{
+                  transform: `rotate(${-index * 120}deg) translateX(${ index === currentIndex ? 20 : 130 }px) rotate(${index * 120}deg)`, // Adjusted rotation for new positions
+                  boxShadow:
+                    currentIndex === index
+                      ? "0 0 15px 10px rgba(255,0,255,0.5), 0 0 25px 15px rgba(0,255,255,0.3)"
+                      : "",
+                  border: currentIndex === index ? "4px solid white" : "",
+                  
+                }}
+              >
+                <div
+                  className="icon-image-wrapper"
+                  style={{
+                    padding: "10px",
+                    transition: "transform 0.4s",
+                    transform: `rotate(${-rotation}deg)`, // Counter the parent rotation to keep the icon upright
+                  }}
+                >
+                  <img src={icon.image} alt={icon.label} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    ))
-  }
-  
-        </div>
-        </div>
-
       )}
     </div>
   );
-}
+};
+
 Circularnav.displayName = "Circularnav";

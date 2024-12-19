@@ -1,122 +1,77 @@
-/* @media (max-width: 786px) {
-    .semicircle {
-      transform: scale(4.0) !important;
-    }
-      .icon {
-        width: 2.5rem !important;
-        height: 2.5rem !important;
-        background: red;
-      }
-      .mic{
-        width: 3rem;
-        height: 5rem;
-      }
-      .keyboard{
-        width: 0rem;
-        height: 8rem;
-      }
-      .avatar{
-        top: 20px;
-        left: -16px;
-      }
-      .icon-image{
-      }
-  }
+/* Main container for the circular navigation */
+.fixed {
+  position: fixed;
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+}
+
+/* Semicircle Container */
+.circle{
+  margin-top:-250px;
+  margin-left:-2rem;
+  position: relative;
+  width: 250px;
+  height: 250px; /* Only half the circle for a semicircle effect */  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;  
   
-  @media (max-width: 480px) {
-    .semicircle {
-        transform: scale(3.0) !important;
-      }
-        .icon {
-          width: 2.5rem !important;
-          height: 2.5rem !important;
-        }
-        .mic{
-          width: 4rem;
-          height: 7rem;
-        }
-        .keyboard{
-          width: 0rem;
-          height: 13rem;
-        }
-        .avatar{
-          top: -12px;
-          left: -24px;
-        }
-  } */
-  .semicircle {
-    margin-top:-5.5rem;
-    margin-left: 1rem;
-      position: absolute;
-      left: 0;
-      width: 400px;
-      height: 417px;
-      background: linear-gradient(180deg, #8BDEDA 0%, #8BDEDA 50%, #998EE0 75%, #EF9393 87.5%, #EF9393 100%);
-      clip-path: path("M-10 0C22.2421 0.803877 45.2805 5.46127 66.7981 14.8108C88.3157 24.1603 107.891 37.9189 124.407 55.3009C140.923 72.6829 154.055 93.348 163.054 116.116C172.054 138.885 176.744 163.31 176.857 187.998C176.97 212.687 172.503 237.154 163.713 260.004C154.922 282.853 141.979 303.638 125.623 321.17C109.268 338.703 89.8188 352.64 68.3876 362.186C46.9564 371.732 23.9626 376.7 0.718831 376.806L0.710229 374.926C23.7215 374.821 46.4854 369.903 67.7023 360.452C88.9192 351.001 108.173 337.204 124.366 319.847C140.558 302.49 153.371 281.913 162.074 259.292C170.777 236.671 175.199 212.448 175.087 188.006C174.975 163.565 170.332 139.384 161.422 116.843C152.513 94.3026 139.512 73.8442 123.161 56.636C106.811 39.4278 87.4312 25.8068 66.1287 16.5508C44.8262 7.29476 22.0182 2.58493 -10 2.69022L-10 0Z");
-    }
-    .semicircle-left{
-      margin-top: -5.5rem;
-      margin-left: -24rem;
-      transform: scaleX(-1);
-      position: absolute;
-      left: 0;
-      width: 400px;
-      height: 417px;
-      background: linear-gradient(180deg, #8BDEDA 0%, #8BDEDA 50%, #998EE0 75%, #EF9393 87.5%, #EF9393 100%);
-      clip-path: path("M-10 0C22.2421 0.803877 45.2805 5.46127 66.7981 14.8108C88.3157 24.1603 107.891 37.9189 124.407 55.3009C140.923 72.6829 154.055 93.348 163.054 116.116C172.054 138.885 176.744 163.31 176.857 187.998C176.97 212.687 172.503 237.154 163.713 260.004C154.922 282.853 141.979 303.638 125.623 321.17C109.268 338.703 89.8188 352.64 68.3876 362.186C46.9564 371.732 23.9626 376.7 0.718831 376.806L0.710229 374.926C23.7215 374.821 46.4854 369.903 67.7023 360.452C88.9192 351.001 108.173 337.204 124.366 319.847C140.558 302.49 153.371 281.913 162.074 259.292C170.777 236.671 175.199 212.448 175.087 188.006C174.975 163.565 170.332 139.384 161.422 116.843C152.513 94.3026 139.512 73.8442 123.161 56.636C106.811 39.4278 87.4312 25.8068 66.1287 16.5508C44.8262 7.29476 22.0182 2.58493 -10 2.69022L-10 0Z");
-    }
-    /* Main container for the circular navigation */
-    .circular-nav-container {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin-top:-5rem;
-    
-    }
-    
-    .semicircle-container {
-      margin-top: -7rem;
-      position: relative;
-      width: 200px;
-      height: 200px;
-      /* clip-path: circle(50%); */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.5s ease-in-out;
-    }
-    
-    .icon {
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-      transition: transform 0.5s ease-in-out;
-      border:1px solid red;
-      background: #000;
-    
-    }
-    
-    .icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .icon.active {
-      
-      width: 60px;
-      height: 60px;
-      box-shadow:0 0 15px 10px rgba(255,0,255,0.5), 0 0 25px 15px rgba(0,255,255,0.3);
-      border: 4px solid white;
-    }
-    
-    
-    
+}
+.semicircle {
+  margin-top:-9rem;
+  margin-left:-130px;
+  position: relative;
+  width: 250px;
+  height: 250px; /* Only half the circle for a semicircle effect */
+  border-radius: 50%; /* Top half of the circle */
+  border: 2px solid white;
+
+  
+  
+}
+
+/* Individual icons inside the semicircle */
+.icon {
+  text-align: center;
+  width: 48px;
+  height: 48px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+
+
+/* Icon images */
+.icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Active icon styles */
+.icon.active {
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 0 15px 10px rgba(255, 0, 255, 0.5), 
+              0 0 25px 15px rgba(0, 255, 255, 0.3);
+  border: 4px solid white;
+}
+
+/* Adjust hover effects */
+.icon:hover {
+  transform: scale(1.1);
+  border: 4px solid white;
+  box-shadow: 0 0 10px 5px rgba(0, 255, 255, 0.3);
+}
