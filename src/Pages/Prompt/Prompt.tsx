@@ -114,9 +114,9 @@ export const Prompt: React.FC = () => {
     <div className="h-screen bg-black text-center relative text-white overflow-hidden">
     <Navbar/>
       {/* Plus icon with expanded menu */}
-      {/* <div className="absolute top-4 left-4 z-50">
-        <Circularnav />
-      </div> */}
+
+
+
 
       <div className="flex flex-col justify-center items-center h-[80vh]">
         {!hasSearched ? (
