@@ -59,7 +59,7 @@ export const Circularnav: React.FC = () => {
     setCurrentIndex(clickedIndex); // Update the active index
     setIsExpanded(true); // Expand the navigation
     setTimeout(() => {
-      navigate(icons[clickedIndex].path); // Navigate to the path
+      // navigate(icons[clickedIndex].path); // Navigate to the path
     }, 1000); // Adjust the timeout duration as per your transition time
   };
 
@@ -102,7 +102,7 @@ export const Circularnav: React.FC = () => {
                 className={`icon ${currentIndex === index ? "active" : "icon  bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] "}`}
                 onClick={() => handleRotate(index)}
                 style={{
-                  transform: `rotate(${-index * 120}deg) translateX(${index === currentIndex ? 60 : 135}px) rotate(${index * 120}deg)`,
+                  transform: `rotate(${-index * 120}deg) translateX(${index === currentIndex ? 70 : 160}px) rotate(${index * 120}deg)`,
                   boxShadow: currentIndex === index ? "0 0 15px 10px rgba(255,0,255,0.5), 0 0 25px 15px rgba(0,255,255,0.3)" : "",
                   border: currentIndex === index ? "4px solid white" : "",
                   borderRadius: "50%",
