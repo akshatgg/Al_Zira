@@ -1,24 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import "./Circularnav.css";
-import Plus from "../../assets/Plus.svg";
-import Ellipse from "../../assets/Ellipse.svg";
-import Mic from "../../assets/Mic.svg";
-import Avatar from "../../assets/Avatar Placeholder.svg";
-import Keyboard from "../../assets/Keyboard.svg";
 
-type Icon = {
-  id: number;
-  label: string;
-  image: string;
-  path: string;
-};
-
-const icons: Icon[] = [
-  { id: 1, label: "Avatar", path: '/avatar', image: Avatar },
-  { id: 2, label: "Keyboard", path: '/home', image: Keyboard },
-  { id: 3, label: "Mic", path: '/Audio', image: Mic },
-];
+import React, { useState } from 'react'
+import "./Circularnav.css"
+import Plus from '../../assets/Plus.svg';
+import Ellipse from '../../assets/Ellipse.svg';
+import Mic from '../../assets/Mic.svg';
+import Avatar from '../../assets/Avatar Placeholder.svg';
+import Keyboard from '../../assets/Keyboard.svg';
+import Semicircle from '../../assets/Semicircle.svg';
+import {Link} from 'react-router-dom'
 
 export const Circularnav: React.FC = () => {
   const [rotation, setRotation] = useState(0); // Tracks the current rotation
@@ -95,31 +84,25 @@ export const Circularnav: React.FC = () => {
         <div className="expanded-items">
           <span className="semicircle"></span>
 
-          <div className="semicircle-container" style={{ transform: `rotate(${rotation}deg)` }}>
-            {icons.map((icon, index) => (
-              <div
-                key={icon.id}
-                className={`icon ${currentIndex === index ? "active" : "icon  bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] "}`}
-                onClick={() => handleRotate(index)}
-                style={{
-                  transform: `rotate(${-index * 120}deg) translateX(${index === currentIndex ? 70 : 160}px) rotate(${index * 120}deg)`,
-                  boxShadow: currentIndex === index ? "0 0 15px 10px rgba(255,0,255,0.5), 0 0 25px 15px rgba(0,255,255,0.3)" : "",
-                  border: currentIndex === index ? "4px solid white" : "",
-                  borderRadius: "50%",
-                }}
-              >
-                <div
-                  className="icon-image-wrapper"
-                  style={{
-                    padding: "10px",
-                    transition: "transform 0.6s",
-                    transform: `rotate(${-rotation}deg)`, // Counter the parent rotation to keep the icon upright
-                  }}
-                >
-                  <img src={icon.image} alt={icon.label} />
-                </div>
-              </div>
-            ))}
+          <div className="mic icon-container absolute" style={{ transform: 'rotate(-90deg) translate(200px)' }}>
+            <Link to="/Audio">
+            <div className="icon w-12 h-12 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center rotate-90 hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
+              <img src={Mic} alt="Microphone" className="icon-image w-6 h-6 hover:brightness-150" />
+            </div>
+            </Link>
+          </div>
+
+          <div className="keyboard icon-container absolute" style={{ transform: 'rotate(-25deg) translate(90px)' }}>
+            <div className="icon w-12 h-12 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
+              <img src={Keyboard} alt="Keyboard" className="icon-image w-6 h-6 hover:brightness-150" />
+            </div>
+          </div>
+
+          <div className="avatar icon-container absolute" style={{ transform: 'rotate(90deg) translate(135px)' }}>
+            <div className="icon w-12 h-12 bg-black rounded-full border-2 border-gray-500 flex items-center justify-center -rotate-90 hover:scale-110 hover:border-white hover:border-4 hover:bg-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_15px_10px_rgba(255,0,255,0.5),0_0_25px_15px_rgba(0,255,255,0.3)]">
+              <img src={Avatar} alt="Avatar" className="icon-image w-6 h-6 hover:brightness-150" />
+            </div>
+
           </div>
         </div>
       )}
