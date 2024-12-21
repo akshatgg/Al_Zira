@@ -1,49 +1,68 @@
-
-@media (max-width: 786px) {
-  .semicircle {
-    /* transform: scale(4.0) !important; */
+.semicircle {
+  margin-top:-10.5rem;
+  margin-left: -9.5rem;
+    position: absolute;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    
+    border-radius: 50%;
+    border:2px solid white;
   }
-    .icon {
-      width: 2.5rem !important;
-      height: 2.5rem !important;
-      background: red;
-    }
-    .mic{
-      width: 3rem;
-      height: 5rem;
-    }
-    .keyboard{
-      width: 0rem;
-      height: 8rem;
-    }
-    .avatar{
-      top: 20px;
-      left: -16px;
-    }
-    .icon-image{
-    }
-}
+  
+  /* Main container for the circular navigation */
+  .circular-nav-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top:-5rem;
+  
+  }
+  
+  .semicircle-container {
+    margin-top: -9rem;
+    margin-left: -3rem;
+    position: fixed;
+    width: 250px;
+    height: 250px;
 
-@media (max-width: 480px) {
-  .semicircle {
-      transform: scale(3.0) !important;
-    }
-      .icon {
-        width: 2.5rem !important;
-        height: 2.5rem !important;
-      }
-      .mic{
-        width: 4rem;
-        height: 7rem;
-      }
-      .keyboard{
-        width: 0rem;
-        height: 13rem;
-      }
-      .avatar{
-        top: -12px;
-        left: -24px;
-      }
-}
-
-
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .icon {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out;
+    border:1px solid red;
+    background: #000;
+  
+  }
+  
+  .icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .icon.active {
+    
+    width: 60px;
+    height: 60px;
+    box-shadow:0 0 15px 10px rgba(255,0,255,0.5), 0 0 25px 15px rgba(0,255,255,0.3);
+    border: 4px solid white;
+  }
+  
+  
+  
