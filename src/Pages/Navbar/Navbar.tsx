@@ -20,6 +20,7 @@ export const Navbar: React.FC = () => {
         </div>
         <div className="text-white text-lg md:text-xl lg:text-2xl whitespace-nowrap">
           F.R.I.D.A.Y
+          
         </div>
         <div className="hidden sm:block">
           <img src={arrow_down} alt="arrow_down" className="w-5 h-auto md:w-7 lg:w-9" />
