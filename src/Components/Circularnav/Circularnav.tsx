@@ -112,8 +112,8 @@ export const Circularnav: React.FC = () => {
                   className="icon-image-wrapper"
                   style={{
                     padding: "10px",
-                    transition: "transform 0.659s",
-                    transform: `rotate(${-rotation}deg)`, // Counter the parent rotation to keep the icon upright
+                    transition: "transform 0.5s ease-in-out", 
+                    transform: `rotate(${-rotation}deg)`, 
                   }}
                 >
                   <img src={icon.image} alt={icon.label} />
