@@ -59,7 +59,7 @@ export const Circularnav: React.FC = () => {
     setCurrentIndex(clickedIndex); // Update the active index
     setIsExpanded(true); // Expand the navigation
     setTimeout(() => {
-      // navigate(icons[clickedIndex].path); // Navigate to the path
+      navigate(icons[clickedIndex].path); // Navigate to the path
     }, 1000); // Adjust the timeout duration as per your transition time
   };
 
