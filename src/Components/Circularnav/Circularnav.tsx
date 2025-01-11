@@ -1,11 +1,14 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import "./Circularnav.css";
 import Plus from "../../assets/Plus.svg";
 import Ellipse from "../../assets/Ellipse.svg";
 import Mic from "../../assets/Mic.svg";
 import Avatar from "../../assets/Avatar Placeholder.svg";
 import Keyboard from "../../assets/Keyboard.svg";
+
 
 type Icon = {
   id: number;
@@ -18,12 +21,14 @@ const icons: Icon[] = [
   { id: 1, label: "Avatar", path: '/avatar', image: Avatar },
   { id: 2, label: "Keyboard", path: '/home', image: Keyboard },
   { id: 3, label: "Mic", path: '/Audio', image: Mic },
+
 ];
 
 export const Circularnav: React.FC = () => {
   const [rotation, setRotation] = useState(0); // Tracks the current rotation
   const [currentIndex, setCurrentIndex] = useState(0); // Tracks the currently active icon
   const [isExpanded, setIsExpanded] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
   const circleRef = useRef<HTMLDivElement>(null); // Reference for circle container
@@ -74,14 +79,17 @@ export const Circularnav: React.FC = () => {
       setIsExpanded(false);
       }, 100);
     }
+
   };
 
   return (
     <div
       className="fixed top-2/4 left-10 w-10 h-10 -mt-20 cursor-pointer"
+
       ref={circleRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+
     >
       <img src={Ellipse} alt="Ellipse" className="w-full h-full" />
       <div
@@ -93,6 +101,7 @@ export const Circularnav: React.FC = () => {
       </div>
       {isExpanded && (
         <div className="expanded-items">
+
           <span className="semicircle"></span>
 
           <div className="semicircle-container" style={{ transform: `rotate(${rotation}deg)` }}>
@@ -121,10 +130,13 @@ export const Circularnav: React.FC = () => {
               </div>
             ))}
           </div>
+
         </div>
       )}
     </div>
   );
+
 };
 
 Circularnav.displayName = "Circularnav";
+
