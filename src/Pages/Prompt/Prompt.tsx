@@ -116,6 +116,10 @@ export const Prompt: React.FC = () => {
       {/* Plus icon with expanded menu */}
 
 
+
+
+
+
       <div className="flex flex-col justify-center items-center h-[80vh]">
         {!hasSearched ? (
           <>

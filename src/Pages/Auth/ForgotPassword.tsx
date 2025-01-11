@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import backgroundImage from '@/assets/ForgetPassword_Bg.svg';
-import Logo from "@/assets/Logo.svg";
+import backgroundImage from '../../assets/ForgetPassword_Bg.svg';
+import Logo from "../../assets/Logo.svg";
 
 export const ForgetPassword: React.FC = () => {
   const navigate = useNavigate();
