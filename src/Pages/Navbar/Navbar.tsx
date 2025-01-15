@@ -6,7 +6,7 @@ import shopping from "../../assets/Shopping_bag.svg";
 import UserMenu from "../../Components/UserMenu/UserMenu.tsx";
 import { Circularnav } from '../../Components/Circularnav/Circularnav.tsx';
 
-import { Circularnav } from '../../Components/Circularnav/Circularnav.tsx';
+
 
 
 export const Navbar: React.FC = () => {
